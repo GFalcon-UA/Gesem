@@ -14,7 +14,7 @@
  *    limitations under the License.
  */
 
-package ua.gfalcon.skripka.entitydao;
+package ua.com.gfalcon.entitydao;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
