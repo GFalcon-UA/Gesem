@@ -1,11 +1,6 @@
 sudo: required
-
-services:
-  - postgresql
-
-addons:
-  postgresql: "9.6"
-
+language: java
+jdk: oraclejdk8
 
 deploy:
   provider: heroku
