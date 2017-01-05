@@ -1,18 +1,18 @@
 
 <%--
-  ~ Copyright (c) 2016 by Oleksii V. KHALIKOV
+  ~ Copyright (c) 2016-2017 by Oleksii KHALIKOV.
   ~ ========================================================
-  ~    Licensed under the Apache License, Version 2.0 (the "License");
-  ~    you may not use this file except in compliance with the License.
-  ~    You may obtain a copy of the License at
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
   ~
-  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~     http://www.apache.org/licenses/LICENSE-2.0
   ~
-  ~    Unless required by applicable law or agreed to in writing, software
-  ~    distributed under the License is distributed on an "AS IS" BASIS,
-  ~    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  ~    See the License for the specific language governing permissions and
-  ~    limitations under the License.
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
   --%>
 
 <%--
@@ -24,7 +24,7 @@
 <html>
 <head>
     <title>GF Gesem (Login page)</title>
-    <link rel="stylesheet" href="/libs/bootstrap-3.3.6-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/libs/bootstrap/3.3.7/css/bootstrap.min.css">
     <script>
         function showRegisterPlace() {
             document.getElementById('loginPlace').style.display = 'none';
@@ -139,7 +139,7 @@
 </head>
 <body onload="hideRegisterPlace()">
 <div class="page-header" style="margin: auto; max-width: 80%">
-    <img src="/img/logo.png" align="middle" vspace="10px" width="350px" alt="GFalcon"><br/>
+    <img src="${pageContext.request.contextPath}/img/logo.png" align="middle" vspace="10px" width="350px" alt="GFalcon"><br/>
     <h1>GF Gesem
         <small>Management Accounting System v-1.0</small>
     </h1>
