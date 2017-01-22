@@ -19,30 +19,34 @@ package ua.com.gfalcon.gesem.domain.norms;
 import com.fasterxml.jackson.databind.MappingJsonFactory;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 import ua.com.gfalcon.gesem.domain.Config;
+import ua.com.gfalcon.gesem.domain.cms.specification.Stage;
+import ua.com.gfalcon.gesem.domain.cms.specification.StageImpl;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Gesem
+ *
  *
  * @author Oleksii Khalikov
  * @version v-1.0
- * @since on 29.12.2016
+ * @since 1.0
  */
-public class Work /*extends AbstractEntity */{
+public class Work extends AbstractEntity {
     private String name;
+
     private WorksType worksType;
 
     /**
      * Коэффициенты для расчета расхода базовых материалов
      */
-    private Map<Material, Integer> basicBomCoeficients;
+    private Map<Material, BigDecimal> basicBomCoefficients;
 
     /**
      * Нормы расхода специфических материалов
      */
-    private Map<Material, Integer> specificBOM;
+    private Map<Material, BigDecimal> specificBOM;
 
     public String getName() {
         return name;
@@ -60,19 +64,19 @@ public class Work /*extends AbstractEntity */{
         this.worksType = worksType;
     }
 
-    public Map<Material, Integer> getBasicBomCoeficients() {
-        return basicBomCoeficients;
+    public Map<Material, BigDecimal> getBasicBomCoeficients() {
+        return basicBomCoefficients;
     }
 
-    public void setBasicBomCoeficients(Map<Material, Integer> basicBomCoeficients) {
-        this.basicBomCoeficients = basicBomCoeficients;
+    public void setBasicBomCoeficients(Map<Material, BigDecimal> basicBomCoeficients) {
+        this.basicBomCoefficients = basicBomCoeficients;
     }
 
-    public Map<Material, Integer> getSpecificBOM() {
+    public Map<Material, BigDecimal> getSpecificBOM() {
         return specificBOM;
     }
 
-    public void setSpecificBOM(Map<Material, Integer> specificBOM) {
+    public void setSpecificBOM(Map<Material, BigDecimal> specificBOM) {
         this.specificBOM = specificBOM;
     }
 

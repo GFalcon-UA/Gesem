@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.gesem.domain.norms;
 
+import ua.com.gfalcon.entitydao.AbstractEntity;
 import ua.com.gfalcon.gesem.domain.norms.MeasureUnit;
 
 /**
@@ -25,7 +26,7 @@ import ua.com.gfalcon.gesem.domain.norms.MeasureUnit;
  * @version v-1.0
  * @since on 29.12.2016
  */
-public class Material {
+public class Material extends AbstractEntity{
     private String name;
     private MeasureUnit measureUnit;
 }

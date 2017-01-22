@@ -28,7 +28,7 @@ import java.util.Set;
  * @version v-1.0
  * @since on 31.12.2016
  */
-public class MeasureUnit {
+public class MeasureUnit extends AbstractEntity {
     private String name;
     private String smallName;
 

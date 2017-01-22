@@ -18,6 +18,7 @@ package ua.com.gfalcon.gesem.domain.cms.specification;
 
 import ua.com.gfalcon.gesem.domain.norms.Work;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Set;
 
@@ -26,22 +27,31 @@ import java.util.Set;
  *
  * @author Oleksii Khalikov
  * @version v-1.0
- * @since on 04.01.2017
+ * @since 1.0
  */
 public interface Stage {
     String getName();
 
     void setName(String name);
 
-    void setMotherStage(Stage motherStage);
+    void setParentStage(Stage parentStage);
 
     Set<Stage> getSubStages();
 
-    void addWork(Work work, Integer value);
+    void addWork(Work work, BigDecimal value);
 
     void removeWork(Work work);
 
-    void setWorks(Map<Work, Integer> works);
+    /**
+     *
+     * @param work работа
+     * @param quantity объем
+     */
+    void addWorks(Work work, BigDecimal quantity);
 
-    Map<Work, Integer> getWorks();
+    /**
+     *
+     * @return перечень работ и их объема
+     */
+    Map<Work, BigDecimal> getWorks();
 }

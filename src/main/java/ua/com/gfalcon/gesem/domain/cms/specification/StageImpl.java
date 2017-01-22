@@ -19,6 +19,8 @@ package ua.com.gfalcon.gesem.domain.cms.specification;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 import ua.com.gfalcon.gesem.domain.norms.Work;
 
+import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,12 +29,24 @@ import java.util.Set;
  *
  * @author Oleksii Khalikov
  * @version v-1.0
- * @since on 04.01.2017
+ * @since 1.0
  */
-public class StageImpl implements Stage {
+@Entity(name = "Stage")
+@Table(name = "STAGES")
+public class StageImpl extends AbstractEntity implements Stage {
+    @Column(name = "NAME")
     private String name;
+
+    @ManyToOne
+    private Stage parentStage;
+
+    @OneToMany(mappedBy = "parentStage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Stage> stages;
-    private Map<Work, Integer> works;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    @MapKey(name = "type")
+    @MapKeyEnumerated
+    private Map<Work, BigDecimal> works;
 
     @Override
     public String getName() {
@@ -45,7 +59,7 @@ public class StageImpl implements Stage {
     }
 
     @Override
-    public void setMotherStage(Stage motherStage) {
+    public void setParentStage(Stage parentStage) {
 
     }
 
@@ -55,7 +69,7 @@ public class StageImpl implements Stage {
     }
 
     @Override
-    public void addWork(Work work, Integer value) {
+    public void addWork(Work work, BigDecimal value) {
         works.put(work, value);
     }
 
@@ -65,12 +79,12 @@ public class StageImpl implements Stage {
     }
 
     @Override
-    public void setWorks(Map<Work, Integer> works) {
-        this.works = works;
+    public void addWorks(Work work, BigDecimal quantity) {
+
     }
 
     @Override
-    public Map<Work, Integer> getWorks() {
+    public Map<Work, BigDecimal> getWorks() {
         return null;
     }
 

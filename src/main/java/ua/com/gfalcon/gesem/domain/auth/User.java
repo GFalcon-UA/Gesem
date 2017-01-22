@@ -232,4 +232,56 @@ public class User extends AbstractEntity {
     public void setExpireDate(DateTime expireDate) {
         this.expireDate = expireDate.toDate();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof User))
+            return false;
+
+        User user = (User) o;
+
+        if (isActivated() != user.isActivated())
+            return false;
+        if (isAdministrator() != user.isAdministrator())
+            return false;
+        if (!getLogin().equals(user.getLogin()))
+            return false;
+        if (!password.equals(user.password))
+            return false;
+        if (getAmountPasswordFailed() != null ?
+                !getAmountPasswordFailed().equals(user.getAmountPasswordFailed()) :
+                user.getAmountPasswordFailed() != null)
+            return false;
+        if (getLastDatePasswordFailed() != null ?
+                !getLastDatePasswordFailed().equals(user.getLastDatePasswordFailed()) :
+                user.getLastDatePasswordFailed() != null)
+            return false;
+        if (getRegisterDate() != null ?
+                !getRegisterDate().equals(user.getRegisterDate()) :
+                user.getRegisterDate() != null)
+            return false;
+        return getExpireDate() != null ? getExpireDate().equals(user.getExpireDate()) : user.getExpireDate() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getLogin().hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + (getAmountPasswordFailed() != null ? getAmountPasswordFailed().hashCode() : 0);
+        result = 31 * result + (getLastDatePasswordFailed() != null ? getLastDatePasswordFailed().hashCode() : 0);
+        result = 31 * result + (isActivated() ? 1 : 0);
+        result = 31 * result + (isAdministrator() ? 1 : 0);
+        result = 31 * result + (getRegisterDate() != null ? getRegisterDate().hashCode() : 0);
+        result = 31 * result + (getExpireDate() != null ? getExpireDate().hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                '}';
+    }
 }
