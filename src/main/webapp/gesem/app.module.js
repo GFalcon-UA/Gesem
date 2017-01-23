@@ -23,7 +23,9 @@
   angular.module('gesem',[
     'ngCookies',
     'ngRoute',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngHandsontable',
+    'smart-table'
   ]);
   
 })();
