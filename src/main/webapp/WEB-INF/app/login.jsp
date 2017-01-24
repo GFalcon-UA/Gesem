@@ -24,7 +24,7 @@
 <html>
 <head>
     <title>GF Gesem (Login page)</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/libs/bootstrap/3.3.7/bootstrap.min.css">
     <script>
         function showRegisterPlace() {
             document.getElementById('loginPlace').style.display = 'none';
