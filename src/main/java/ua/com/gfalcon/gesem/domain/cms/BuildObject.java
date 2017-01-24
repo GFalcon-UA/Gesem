@@ -21,6 +21,7 @@ import ua.com.gfalcon.gesem.domain.cms.specification.Stage;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -33,24 +34,25 @@ import java.util.Set;
 @Entity(name = "BuidObject")
 @Table(name = "BUILD_OBJECTS")
 public class BuildObject extends AbstractEntity {
-    @Column(name = "NAME")
+
     private String name;
 
     @ManyToOne
     private Partner owner;
 
     @OneToMany(mappedBy = "parentStage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Stage> stages;
+    private Set<Stage> stages = new HashSet<>();
 
-    @Column(name = "ADDRESS")
     private String address;
 
-    @Column()
-    private BigDecimal overheadCosts;
+    private BigDecimal overheadCosts = new BigDecimal(0);
+
+    protected BuildObject() {
+
+    }
 
     public BuildObject(String name) {
-        setName(name);
-        setOverheadCosts(0);
+        this.name = name;
     }
 
     public String getName() {
@@ -93,52 +95,33 @@ public class BuildObject extends AbstractEntity {
         this.overheadCosts = overheadCosts;
     }
 
-    public void setOverheadCosts(double percent){
-        setOverheadCosts(new BigDecimal(percent));
-    }
-
-    public void setOverheadCosts(int percent){
-        setOverheadCosts(new BigDecimal(percent));
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof BuildObject))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         BuildObject that = (BuildObject) o;
 
-        if (!getName().equals(that.getName()))
+        if (!name.equals(that.name))
             return false;
-        if (!getOwner().equals(that.getOwner()))
+        if (!owner.equals(that.owner))
             return false;
-        if (getStages() != null ? !getStages().equals(that.getStages()) : that.getStages() != null)
+        if (stages != null ? !stages.equals(that.stages) : that.stages != null)
             return false;
-        if (getAddress() != null ? !getAddress().equals(that.getAddress()) : that.getAddress() != null)
+        if (address != null ? !address.equals(that.address) : that.address != null)
             return false;
-        return getOverheadCosts() != null ?
-                getOverheadCosts().equals(that.getOverheadCosts()) :
-                that.getOverheadCosts() == null;
+        return overheadCosts != null ? overheadCosts.equals(that.overheadCosts) : that.overheadCosts == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + getOwner().hashCode();
-        result = 31 * result + (getStages() != null ? getStages().hashCode() : 0);
-        result = 31 * result + (getAddress() != null ? getAddress().hashCode() : 0);
-        result = 31 * result + (getOverheadCosts() != null ? getOverheadCosts().hashCode() : 0);
+        int result = name.hashCode();
+        result = 31 * result + owner.hashCode();
+        result = 31 * result + (stages != null ? stages.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (overheadCosts != null ? overheadCosts.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "BuildObject{" +
-                "name='" + name + '\'' +
-                ", owner=" + owner +
-                ", address='" + address + '\'' +
-                '}';
     }
 }

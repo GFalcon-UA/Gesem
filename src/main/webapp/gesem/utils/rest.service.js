@@ -33,40 +33,25 @@
       put: putRequest
     };
 
-    return self.serv;
-
     function sendRestRequest(req, callback) {
-      req.responseType = 'json';
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
-      $http(req).
-        success(function (data, status) {
-          var resp = {
-            nStatus : status
-          };
-          try {
-            resp.oData = angular.fromJson(data);
-          } catch (err){
-            resp.oData = data;
-          }
-          deferred.resolve(resp);
+      $http(req).then(
+        function (response) {
+          deferred.resolve(response.data);
+          debugger;
           return cb();
-      }).
-        error(function (data, status) {
-          var error = {
-            nErrorCode: status,
-            oErrorData: data
-          };
-          deferred.reject(error);
-          return cb(error);
-      }.bind(this)).
-        finally(function () {
-
-      });
-
+        },
+        function (response) {
+          deferred.reject(response);
+          debugger;
+          return cb(response);
+        }.bind(this));
       return deferred.promise;
     }
+
+    return self.serv;
 
     function getRequest(sURL, oParams, callback) {
       var req = {
@@ -78,7 +63,7 @@
 
     }
 
-    function postRequest(sURL, oData, oParams, callback) {
+    function postRequest(sURL, oParams, oData, callback) {
       var req = {
         method: 'POST',
         url: sURL,
@@ -97,7 +82,7 @@
       return sendRestRequest(req, callback);
     }
 
-    function putRequest(sURL, oData, oParams, callback) {
+    function putRequest(sURL, oParams, oData, callback) {
       var req = {
         method: 'PUT',
         url: sURL,

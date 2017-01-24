@@ -18,7 +18,10 @@ package ua.com.gfalcon.gesem.domain.norms;
 
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
-import java.util.Date;
+import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,19 +33,38 @@ import java.util.Set;
  * @version v-1.0
  * @since on 04.01.2017
  */
+@Entity(name = "WorksType")
+@Table(name = "WORKS_TYPES")
 public class WorksType extends AbstractEntity {
+
+    @Column(unique = true)
     private String name;
-    private Set<Work> works;
+
+    @OneToMany(mappedBy = "worksType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Work> works = new HashSet<>();
 
     /**
      * Стоимость и конечная дата действия стоимости
      */
-    private Map<Date, Integer> cost;
+    @OneToMany(mappedBy = "worksType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<WorksPrice> cost = new HashSet<>();
 
     /**
      * Нормы расхода базовых материалов
      */
-    private Map<Material, Integer> basicBOM;
+    @ElementCollection
+    @CollectionTable(name = "basic_bom")
+    @Column(name = "norm")
+    @MapKeyJoinColumn(name = "material_id", referencedColumnName = "id")
+    private Map<Material, BigDecimal> basicBOM = new HashMap<>();
+
+    protected WorksType() {
+
+    }
+
+    public WorksType(String name) {
+        setName(name);
+    }
 
     public String getName() {
         return name;
@@ -60,19 +82,46 @@ public class WorksType extends AbstractEntity {
         this.works = works;
     }
 
-    public Map<Date, Integer> getCost() {
+    public Set<WorksPrice> getCost() {
         return cost;
     }
 
-    public void setCost(Map<Date, Integer> cost) {
+    public void setCost(Set<WorksPrice> cost) {
         this.cost = cost;
     }
 
-    public Map<Material, Integer> getBasicBOM() {
+    public Map<Material, BigDecimal> getBasicBOM() {
         return basicBOM;
     }
 
-    public void setBasicBOM(Map<Material, Integer> basicBOM) {
+    public void setBasicBOM(Map<Material, BigDecimal> basicBOM) {
         this.basicBOM = basicBOM;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof WorksType))
+            return false;
+
+        WorksType worksType = (WorksType) o;
+
+        if (!name.equals(worksType.name))
+            return false;
+        if (works != null ? !works.equals(worksType.works) : worksType.works != null)
+            return false;
+        if (cost != null ? !cost.equals(worksType.cost) : worksType.cost != null)
+            return false;
+        return basicBOM != null ? basicBOM.equals(worksType.basicBOM) : worksType.basicBOM == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (works != null ? works.hashCode() : 0);
+        result = 31 * result + (cost != null ? cost.hashCode() : 0);
+        result = 31 * result + (basicBOM != null ? basicBOM.hashCode() : 0);
+        return result;
     }
 }

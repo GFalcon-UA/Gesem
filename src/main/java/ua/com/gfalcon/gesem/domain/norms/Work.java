@@ -16,12 +16,9 @@
 
 package ua.com.gfalcon.gesem.domain.norms;
 
-import com.fasterxml.jackson.databind.MappingJsonFactory;
 import ua.com.gfalcon.entitydao.AbstractEntity;
-import ua.com.gfalcon.gesem.domain.Config;
-import ua.com.gfalcon.gesem.domain.cms.specification.Stage;
-import ua.com.gfalcon.gesem.domain.cms.specification.StageImpl;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,20 +30,42 @@ import java.util.Map;
  * @version v-1.0
  * @since 1.0
  */
+@Entity(name = "Work")
+@Inheritance(strategy = InheritanceType.JOINED)
+//@MappedSuperclass
 public class Work extends AbstractEntity {
+
+    @Column(unique = true)
     private String name;
 
+    @ManyToOne
     private WorksType worksType;
 
     /**
      * Коэффициенты для расчета расхода базовых материалов
      */
-    private Map<Material, BigDecimal> basicBomCoefficients;
+    @ElementCollection
+    @CollectionTable(name = "basic_bom_coefficients")
+    @Column(name = "coefficient")
+    @MapKeyJoinColumn(name = "material_id", referencedColumnName = "id")
+    private Map<Material, BigDecimal> basicBomCoefficients = new HashMap<>();
 
     /**
      * Нормы расхода специфических материалов
      */
-    private Map<Material, BigDecimal> specificBOM;
+    @ElementCollection
+    @CollectionTable(name = "specific_bom")
+    @Column(name = "norm")
+    @MapKeyJoinColumn(name = "material_id", referencedColumnName = "id")
+    private Map<Material, BigDecimal> specificBOM = new HashMap<>();
+
+    protected Work() {
+
+    }
+
+    public Work(String name) {
+        setName(name);
+    }
 
     public String getName() {
         return name;
@@ -80,15 +99,32 @@ public class Work extends AbstractEntity {
         this.specificBOM = specificBOM;
     }
 
-    public Map<Material, Integer> getBillOfMaterial() {
-        byte decimalRate = Config.getNumberDecimalRate();
-        HashMap<Material, Integer> basicBOM = (HashMap<Material, Integer>) getWorksType().getBasicBOM();
-        HashMap<Material, Integer> billOfMaterial = new HashMap<>();
-        //todo добавить расчет норм расхода материалов
-        return billOfMaterial;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Work))
+            return false;
+
+        Work work = (Work) o;
+
+        if (!name.equals(work.name))
+            return false;
+        if (!worksType.equals(work.worksType))
+            return false;
+        if (basicBomCoefficients != null ?
+                !basicBomCoefficients.equals(work.basicBomCoefficients) :
+                work.basicBomCoefficients != null)
+            return false;
+        return specificBOM != null ? specificBOM.equals(work.specificBOM) : work.specificBOM == null;
     }
 
-    public void setBillOfMaterial(Map<Material, Integer> bom) {
-
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + worksType.hashCode();
+        result = 31 * result + (basicBomCoefficients != null ? basicBomCoefficients.hashCode() : 0);
+        result = 31 * result + (specificBOM != null ? specificBOM.hashCode() : 0);
+        return result;
     }
 }

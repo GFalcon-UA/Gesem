@@ -59,10 +59,6 @@ public class User extends AbstractEntity {
     @Column(name = "REGISTERED")
     private Date registerDate;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "EXPIRE")
-    private Date expireDate;
-
     protected User() {
         this(("Log" + DateTime.now().toString()), "");
     }
@@ -77,9 +73,6 @@ public class User extends AbstractEntity {
         this.login = login;
         setPassword(password);
         registerDate = DateTime.now().toDate();
-        DateTime dtRegister = new DateTime(registerDate);
-        DateTime dtExpire = dtRegister.plusWeeks(Config.WEEKS_YO_EXPIRE_DATE_ACTIVE_USER);
-        expireDate = dtExpire.toDate();
         administrator = false;
         activated = false;
         lastDatePasswordFailed = registerDate;
@@ -215,22 +208,11 @@ public class User extends AbstractEntity {
         this.registerDate = registerDate.toDate();
     }
 
-    /**
-     * Получить дату истечения активации аккаунта пользователя
-     *
-     * @return дата истечения активации аккаунта пользователя
-     */
-    public DateTime getExpireDate() {
-        return new DateTime(expireDate);
-    }
-
-    /**
-     * Задать дату истечения активации аккаунта пользователя
-     *
-     * @param expireDate дата истечения активации аккаунта пользователя
-     */
-    public void setExpireDate(DateTime expireDate) {
-        this.expireDate = expireDate.toDate();
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                '}';
     }
 
     @Override
@@ -242,46 +224,34 @@ public class User extends AbstractEntity {
 
         User user = (User) o;
 
-        if (isActivated() != user.isActivated())
+        if (activated != user.activated)
             return false;
-        if (isAdministrator() != user.isAdministrator())
+        if (administrator != user.administrator)
             return false;
-        if (!getLogin().equals(user.getLogin()))
+        if (!login.equals(user.login))
             return false;
         if (!password.equals(user.password))
             return false;
-        if (getAmountPasswordFailed() != null ?
-                !getAmountPasswordFailed().equals(user.getAmountPasswordFailed()) :
-                user.getAmountPasswordFailed() != null)
+        if (amountPasswordFailed != null ?
+                !amountPasswordFailed.equals(user.amountPasswordFailed) :
+                user.amountPasswordFailed != null)
             return false;
-        if (getLastDatePasswordFailed() != null ?
-                !getLastDatePasswordFailed().equals(user.getLastDatePasswordFailed()) :
-                user.getLastDatePasswordFailed() != null)
+        if (lastDatePasswordFailed != null ?
+                !lastDatePasswordFailed.equals(user.lastDatePasswordFailed) :
+                user.lastDatePasswordFailed != null)
             return false;
-        if (getRegisterDate() != null ?
-                !getRegisterDate().equals(user.getRegisterDate()) :
-                user.getRegisterDate() != null)
-            return false;
-        return getExpireDate() != null ? getExpireDate().equals(user.getExpireDate()) : user.getExpireDate() == null;
+        return registerDate != null ? registerDate.equals(user.registerDate) : user.registerDate == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getLogin().hashCode();
+        int result = login.hashCode();
         result = 31 * result + password.hashCode();
-        result = 31 * result + (getAmountPasswordFailed() != null ? getAmountPasswordFailed().hashCode() : 0);
-        result = 31 * result + (getLastDatePasswordFailed() != null ? getLastDatePasswordFailed().hashCode() : 0);
-        result = 31 * result + (isActivated() ? 1 : 0);
-        result = 31 * result + (isAdministrator() ? 1 : 0);
-        result = 31 * result + (getRegisterDate() != null ? getRegisterDate().hashCode() : 0);
-        result = 31 * result + (getExpireDate() != null ? getExpireDate().hashCode() : 0);
+        result = 31 * result + (amountPasswordFailed != null ? amountPasswordFailed.hashCode() : 0);
+        result = 31 * result + (lastDatePasswordFailed != null ? lastDatePasswordFailed.hashCode() : 0);
+        result = 31 * result + (activated ? 1 : 0);
+        result = 31 * result + (administrator ? 1 : 0);
+        result = 31 * result + (registerDate != null ? registerDate.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                '}';
     }
 }

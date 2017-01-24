@@ -16,9 +16,12 @@
 
 package ua.com.gfalcon.gesem.domain.cms.specification;
 
-import ua.com.gfalcon.gesem.domain.norms.Work;
+import ua.com.gfalcon.entitydao.AbstractEntity;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,29 +32,89 @@ import java.util.Set;
  * @version v-1.0
  * @since 1.0
  */
-public interface Stage {
-    String getName();
+@Entity(name = "Stage")
+@Table(name = "STAGES")
+public class Stage extends AbstractEntity {
 
-    void setName(String name);
+    @Column(unique = true)
+    private String name;
 
-    void setParentStage(Stage parentStage);
+    @ManyToOne
+    private Stage parentStage;
 
-    Set<Stage> getSubStages();
+    @OneToMany(mappedBy = "parentStage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Stage> stages = new HashSet<>();
 
-    void addWork(Work work, BigDecimal value);
+    @ElementCollection
+    @CollectionTable(name = "amount_works")
+    @Column(name = "amount")
+    @MapKeyJoinColumn(name = "work_id", referencedColumnName = "id")
+    private Map<StagesWork, BigDecimal> works = new HashMap<>(); // работы и их объемы
 
-    void removeWork(Work work);
+    protected Stage() {
 
-    /**
-     *
-     * @param work работа
-     * @param quantity объем
-     */
-    void addWorks(Work work, BigDecimal quantity);
+    }
 
-    /**
-     *
-     * @return перечень работ и их объема
-     */
-    Map<Work, BigDecimal> getWorks();
+    public Stage(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Stage getParentStage() {
+        return parentStage;
+    }
+
+    public void setParentStage(Stage parentStage) {
+        this.parentStage = parentStage;
+    }
+
+    public Set<Stage> getStages() {
+        return stages;
+    }
+
+    public void setStages(Set<Stage> stages) {
+        this.stages = stages;
+    }
+
+    public Map<StagesWork, BigDecimal> getWorks() {
+        return works;
+    }
+
+    public void setWorks(Map<StagesWork, BigDecimal> works) {
+        this.works = works;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Stage stage = (Stage) o;
+
+        if (!name.equals(stage.name))
+            return false;
+        if (parentStage != null ? !parentStage.equals(stage.parentStage) : stage.parentStage != null)
+            return false;
+        if (stages != null ? !stages.equals(stage.stages) : stage.stages != null)
+            return false;
+        return works != null ? works.equals(stage.works) : stage.works == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (parentStage != null ? parentStage.hashCode() : 0);
+        result = 31 * result + (stages != null ? stages.hashCode() : 0);
+        result = 31 * result + (works != null ? works.hashCode() : 0);
+        return result;
+    }
 }

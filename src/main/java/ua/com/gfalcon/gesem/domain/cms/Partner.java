@@ -19,6 +19,7 @@ package ua.com.gfalcon.gesem.domain.cms;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -32,20 +33,21 @@ import java.util.Set;
 @Table(name = "PARTNERS")
 public class Partner extends AbstractEntity {
 
-    @Column(name = "NAME", unique = true)
+    @Column(unique = true)
     private String name;
 
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<BuildObject> objects;
+    private Set<BuildObject> objects = new HashSet<>();
 
-    @Column(name = "PHONES")
     private String phones;
 
-    @Column(name = "CONTACT")
     private String contactPersons;
 
-    @Column(name = "USREOU")
     private String codeUSREOU;
+
+    protected Partner() {
+
+    }
 
     public Partner(String name){
         setName(name);
@@ -75,34 +77,18 @@ public class Partner extends AbstractEntity {
         this.phones = phones;
     }
 
-    /**
-     *
-     * @return телефоны компании
-     */
     public String getContactPersons() {
         return contactPersons;
     }
 
-    /**
-     *
-     * @param contactPersons Контактные лица
-     */
     public void setContactPersons(String contactPersons) {
         this.contactPersons = contactPersons;
     }
 
-    /**
-     * получить код ЕДРПОУ
-     * @return код ЕДРПОУ
-     */
     public String getCodeUSREOU() {
         return codeUSREOU;
     }
 
-    /**
-     *
-     * @param codeUSREOU код ЕДРПОУ
-     */
     public void setCodeUSREOU(String codeUSREOU) {
         this.codeUSREOU = codeUSREOU;
     }
@@ -111,41 +97,29 @@ public class Partner extends AbstractEntity {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof Partner))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Partner partner = (Partner) o;
 
-        if (!getName().equals(partner.getName()))
+        if (!name.equals(partner.name))
             return false;
-        if (getObjects() != null ? !getObjects().equals(partner.getObjects()) : partner.getObjects() != null)
+        if (objects != null ? !objects.equals(partner.objects) : partner.objects != null)
             return false;
-        if (getPhones() != null ? !getPhones().equals(partner.getPhones()) : partner.getPhones() != null)
+        if (phones != null ? !phones.equals(partner.phones) : partner.phones != null)
             return false;
-        if (getContactPersons() != null ?
-                !getContactPersons().equals(partner.getContactPersons()) :
-                partner.getContactPersons() != null)
+        if (contactPersons != null ? !contactPersons.equals(partner.contactPersons) : partner.contactPersons != null)
             return false;
-        return getCodeUSREOU() != null ?
-                getCodeUSREOU().equals(partner.getCodeUSREOU()) :
-                partner.getCodeUSREOU() == null;
+        return codeUSREOU != null ? codeUSREOU.equals(partner.codeUSREOU) : partner.codeUSREOU == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + (getObjects() != null ? getObjects().hashCode() : 0);
-        result = 31 * result + (getPhones() != null ? getPhones().hashCode() : 0);
-        result = 31 * result + (getContactPersons() != null ? getContactPersons().hashCode() : 0);
-        result = 31 * result + (getCodeUSREOU() != null ? getCodeUSREOU().hashCode() : 0);
+        int result = name.hashCode();
+        result = 31 * result + (objects != null ? objects.hashCode() : 0);
+        result = 31 * result + (phones != null ? phones.hashCode() : 0);
+        result = 31 * result + (contactPersons != null ? contactPersons.hashCode() : 0);
+        result = 31 * result + (codeUSREOU != null ? codeUSREOU.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Partner{" +
-                "name='" + name + '\'' +
-                ", codeUSREOU='" + codeUSREOU + '\'' +
-                '}';
     }
 }

@@ -58,7 +58,6 @@ public class AuthService {
         admin.setActivated(true);
         admin.setAdministrator(true);
         admin.setAmountPasswordFailed(1000000);
-        admin.setExpireDate(admin.getExpireDate().plusYears(100));
         userDAO.saveOrUpdate(admin);
     }
 
@@ -72,11 +71,7 @@ public class AuthService {
         }
         for (User us : candidate) {
             if (us.checkPassword(pass)) {
-                if (us.isActivated()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return us.isActivated();
             }
         }
         String message = String.format("User %s incorrect password", login);

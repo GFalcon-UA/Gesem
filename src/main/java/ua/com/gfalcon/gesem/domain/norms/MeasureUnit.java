@@ -18,6 +18,8 @@ package ua.com.gfalcon.gesem.domain.norms;
 
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -28,9 +30,71 @@ import java.util.Set;
  * @version v-1.0
  * @since on 31.12.2016
  */
+@Entity(name = "MeasureUnit")
+@Table(name = "MEASURE_UNITS")
 public class MeasureUnit extends AbstractEntity {
+
+    @Column(unique = true)
     private String name;
+
     private String smallName;
 
-    private Set<Material> materialSet;
+    @OneToMany(mappedBy = "measureUnit", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Material> materialSet = new HashSet<>();
+
+    protected MeasureUnit() {
+
+    }
+
+    public MeasureUnit(String name) {
+        setName(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSmallName() {
+        return smallName;
+    }
+
+    public void setSmallName(String smallName) {
+        this.smallName = smallName;
+    }
+
+    public Set<Material> getMaterialSet() {
+        return materialSet;
+    }
+
+    public void setMaterialSet(Set<Material> materialSet) {
+        this.materialSet = materialSet;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof MeasureUnit))
+            return false;
+
+        MeasureUnit that = (MeasureUnit) o;
+
+        if (!name.equals(that.name))
+            return false;
+        if (smallName != null ? !smallName.equals(that.smallName) : that.smallName != null)
+            return false;
+        return materialSet != null ? materialSet.equals(that.materialSet) : that.materialSet == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (smallName != null ? smallName.hashCode() : 0);
+        result = 31 * result + (materialSet != null ? materialSet.hashCode() : 0);
+        return result;
+    }
 }

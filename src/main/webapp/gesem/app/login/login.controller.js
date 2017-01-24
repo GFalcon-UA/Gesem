@@ -46,11 +46,7 @@
     }
 
     function auth(oUser) {
-      UserService.auth(oUser).success(function (data) {
-        debugger;
-      }).error(function (msg) {
-        debugger;
-      });
+      UserService.auth(oUser)
     }
 
     function register(oUser) {

@@ -16,6 +16,8 @@
 
 package ua.com.gfalcon.gesem.domain;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by Gesem
  *
@@ -23,6 +25,7 @@ package ua.com.gfalcon.gesem.domain;
  * @version v-1.0
  * @since on 04.01.2017
  */
+@Component
 public class Config {
     private static byte currencyDecimalRate;
     private static byte numberDecimalRate;
