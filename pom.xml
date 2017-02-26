@@ -20,7 +20,7 @@
     <groupId>ua.com.gfalcon</groupId>
     <artifactId>gesem</artifactId>
     <packaging>war</packaging>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <name>GF-Gesem</name>
     <url>http://maven.apache.org</url>
 

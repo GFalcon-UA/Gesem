@@ -70,6 +70,16 @@ public class MeasureUnit extends AbstractEntity {
         return materialSet;
     }
 
+    public void addMaterial(Material material) {
+        materialSet.add(material);
+    }
+
+    public void removeMaterial(Material material) {
+        if (materialSet.contains(material)) {
+            materialSet.remove(material);
+        }
+    }
+
     public void setMaterialSet(Set<Material> materialSet) {
         this.materialSet = materialSet;
     }

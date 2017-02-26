@@ -16,7 +16,10 @@
 
 package ua.com.gfalcon.gesem.domain.cms;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import ua.com.gfalcon.entitydao.AbstractEntity;
+import ua.com.gfalcon.gesem.domain.cms.specification.ParentStage;
 import ua.com.gfalcon.gesem.domain.cms.specification.Stage;
 
 import javax.persistence.*;
@@ -33,15 +36,12 @@ import java.util.Set;
  */
 @Entity(name = "BuidObject")
 @Table(name = "BUILD_OBJECTS")
-public class BuildObject extends AbstractEntity {
+public class BuildObject extends ParentStage {
 
     private String name;
 
     @ManyToOne
     private Partner owner;
-
-    @OneToMany(mappedBy = "parentStage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Stage> stages = new HashSet<>();
 
     private String address;
 
@@ -71,14 +71,6 @@ public class BuildObject extends AbstractEntity {
         this.owner = owner;
     }
 
-    public Set<Stage> getStages() {
-        return stages;
-    }
-
-    public void setStages(Set<Stage> stages) {
-        this.stages = stages;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -99,29 +91,37 @@ public class BuildObject extends AbstractEntity {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (o == null || getClass() != o.getClass())
+
+        if (!(o instanceof BuildObject))
             return false;
 
         BuildObject that = (BuildObject) o;
 
-        if (!name.equals(that.name))
-            return false;
-        if (!owner.equals(that.owner))
-            return false;
-        if (stages != null ? !stages.equals(that.stages) : that.stages != null)
-            return false;
-        if (address != null ? !address.equals(that.address) : that.address != null)
-            return false;
-        return overheadCosts != null ? overheadCosts.equals(that.overheadCosts) : that.overheadCosts == null;
+        return new EqualsBuilder()
+                .append(name, that.name)
+                .append(owner, that.owner)
+                .append(address, that.address)
+                .append(overheadCosts, that.overheadCosts)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + owner.hashCode();
-        result = 31 * result + (stages != null ? stages.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (overheadCosts != null ? overheadCosts.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder(17, 37)
+                .append(name)
+                .append(owner)
+                .append(address)
+                .append(overheadCosts)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "BuildObject{" +
+                "name='" + name + '\'' +
+                ", owner=" + owner +
+                ", address='" + address + '\'' +
+                ", overheadCosts=" + overheadCosts +
+                "} " + super.toString();
     }
 }

@@ -24,9 +24,13 @@ public class WorksPrice extends Price {
     }
 
     public WorksPrice(WorksType worksType, BigDecimal price) {
+        this(worksType, price, DateTime.now());
+    }
+
+    public WorksPrice(WorksType worksType, BigDecimal price, DateTime startDate) {
         setWorksType(worksType);
         setCost(price);
-        setStartDate(DateTime.now());
+        setStartDate(startDate);
     }
 
     public WorksType getWorksType() {

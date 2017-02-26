@@ -69,6 +69,10 @@ public class Partner extends AbstractEntity {
         this.objects = objects;
     }
 
+    public void addObject(BuildObject object) {
+        this.objects.add(object);
+    }
+
     public String getPhones() {
         return phones;
     }

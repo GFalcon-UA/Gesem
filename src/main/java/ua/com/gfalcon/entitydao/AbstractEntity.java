@@ -48,7 +48,7 @@ public class AbstractEntity {
 
     @Override
     public String toString() {
-        return "Entity{" +
+        return "{" +
                 "id=" + id +
                 '}';
     }

@@ -82,12 +82,28 @@ public class WorksType extends AbstractEntity {
         this.works = works;
     }
 
+    public void addWork(Work work) {
+        this.works.add(work);
+    }
+
+    public void removeWork(Work work) {
+        this.works.remove(work);
+    }
+
     public Set<WorksPrice> getCost() {
         return cost;
     }
 
     public void setCost(Set<WorksPrice> cost) {
         this.cost = cost;
+    }
+
+    public void addCost(WorksPrice cost) {
+        this.cost.add(cost);
+    }
+
+    public void removeCost(WorksPrice cost) {
+        this.cost.remove(cost);
     }
 
     public Map<Material, BigDecimal> getBasicBOM() {

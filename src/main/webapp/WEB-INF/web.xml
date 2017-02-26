@@ -67,7 +67,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>mvc-dispatcher</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/api/</url-pattern>
     </servlet-mapping>
 
     <!-- Solve for correct encoding JSP texts input field for RequestParam in Controller -->

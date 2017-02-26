@@ -24,9 +24,13 @@ public class MaterialsPrice extends Price {
     }
 
     public MaterialsPrice(Material material, BigDecimal price) {
+        this(material, price, DateTime.now());
+    }
+
+    public MaterialsPrice(Material material, BigDecimal price, DateTime startDate) {
         setMaterial(material);
         setCost(price);
-        setStartDate(DateTime.now());
+        setStartDate(startDate);
     }
 
     public Material getMaterial() {

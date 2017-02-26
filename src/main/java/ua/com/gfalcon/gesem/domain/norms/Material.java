@@ -83,6 +83,14 @@ public class Material extends AbstractEntity{
         return specificationsEntries;
     }
 
+    public void addCost(MaterialsPrice cost) {
+        this.costs.add(cost);
+    }
+
+    public void removeCost(MaterialsPrice cost) {
+        this.costs.remove(cost);
+    }
+
     public void setSpecificationsEntries(
             Set<SpecificationsEntry> specificationsEntries) {
         this.specificationsEntries = specificationsEntries;

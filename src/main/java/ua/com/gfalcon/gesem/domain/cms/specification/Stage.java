@@ -16,6 +16,9 @@
 
 package ua.com.gfalcon.gesem.domain.cms.specification;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
 import javax.persistence.*;
@@ -34,16 +37,13 @@ import java.util.Set;
  */
 @Entity(name = "Stage")
 @Table(name = "STAGES")
-public class Stage extends AbstractEntity {
+public class Stage extends ParentStage {
 
     @Column(unique = true)
     private String name;
 
     @ManyToOne
-    private Stage parentStage;
-
-    @OneToMany(mappedBy = "parentStage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Stage> stages = new HashSet<>();
+    private ParentStage parentStage;
 
     @ElementCollection
     @CollectionTable(name = "amount_works")
@@ -51,12 +51,25 @@ public class Stage extends AbstractEntity {
     @MapKeyJoinColumn(name = "work_id", referencedColumnName = "id")
     private Map<StagesWork, BigDecimal> works = new HashMap<>(); // работы и их объемы
 
+    /**
+     * номер по порядку для сортировки
+     */
+    private Integer sequence;
+
     protected Stage() {
 
     }
 
     public Stage(String name) {
         this.name = name;
+    }
+
+    public Integer getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(Integer sequence) {
+        this.sequence = sequence;
     }
 
     public String getName() {
@@ -67,20 +80,12 @@ public class Stage extends AbstractEntity {
         this.name = name;
     }
 
-    public Stage getParentStage() {
+    public ParentStage getParentStage() {
         return parentStage;
     }
 
-    public void setParentStage(Stage parentStage) {
+    public void setParentStage(ParentStage parentStage) {
         this.parentStage = parentStage;
-    }
-
-    public Set<Stage> getStages() {
-        return stages;
-    }
-
-    public void setStages(Set<Stage> stages) {
-        this.stages = stages;
     }
 
     public Map<StagesWork, BigDecimal> getWorks() {
@@ -95,26 +100,35 @@ public class Stage extends AbstractEntity {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (o == null || getClass() != o.getClass())
+
+        if (!(o instanceof Stage))
             return false;
 
         Stage stage = (Stage) o;
 
-        if (!name.equals(stage.name))
-            return false;
-        if (parentStage != null ? !parentStage.equals(stage.parentStage) : stage.parentStage != null)
-            return false;
-        if (stages != null ? !stages.equals(stage.stages) : stage.stages != null)
-            return false;
-        return works != null ? works.equals(stage.works) : stage.works == null;
+        return new EqualsBuilder()
+                .append(name, stage.name)
+                .append(parentStage, stage.parentStage)
+                .append(works, stage.works)
+                .append(sequence, stage.sequence)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (parentStage != null ? parentStage.hashCode() : 0);
-        result = 31 * result + (stages != null ? stages.hashCode() : 0);
-        result = 31 * result + (works != null ? works.hashCode() : 0);
-        return result;
+        return new HashCodeBuilder(17, 37)
+                .append(name)
+                .append(parentStage)
+                .append(works)
+                .append(sequence)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Stage{" +
+                "name='" + name + '\'' +
+                ", parentStage=" + parentStage +
+                "} " + super.toString();
     }
 }

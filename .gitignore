@@ -528,3 +528,4 @@ buildNumber.properties
 ### VisualStudioCode template
 .vscode
 /src/main/webapp/libs/angular-js/1.6.1/docs/
+/raw/
