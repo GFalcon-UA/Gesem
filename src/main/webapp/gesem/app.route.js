@@ -27,25 +27,29 @@
 
   routeConfig.$inject = ['$routeProvider', '$locationProvider', 'baseUrl'];
   function routeConfig($routeProvider, $locationProvider, baseUrl) {
-    debugger;
 
     $routeProvider
       .when('/', {
-        redirectTo: 'loginPage'
+          redirectTo: 'login'
       });
 
     $routeProvider
-      .when('/loginPage', {
-        templateUrl: "gesem/app/login/login.html",
-        controller: 'LoginPageCtrl',
-        controllerAs: 'vm'
-      });
+        .when('/login', {
+            templateUrl: "gesem/components/authorization/login.html",
+            controller: 'LoginPageCtrl',
+            controllerAs: 'vm'
+        })
+        .when('/users', {
+            templateUrl: "gesem/app/users/users.html",
+            controller: 'UsersCtrl',
+            controllerAs: 'vm'
+        });
 
     $routeProvider.otherwise({
       redirectTo: "/goToBack"
     });
 
-    $locationProvider.html5Mode(true);
+      //$locationProvider.html5Mode(true);
 
   }
 

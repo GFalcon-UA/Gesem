@@ -21,7 +21,7 @@
   'use strict';
 
   angular
-    .module('gesem')
+      .module('authorizationModule')
     .controller('LoginPageCtrl', LoginPageCtrl);
 
   LoginPageCtrl.$inject = ['UserService'];
@@ -38,6 +38,7 @@
     initController();
 
     function initController() {
+        vm.isRegisterPage = false;
       vm.oUser = {
         sLogin: '',
         sPassword: '',
@@ -46,14 +47,18 @@
     }
 
     function auth(oUser) {
-      UserService.auth(oUser)
+        UserService.auth(oUser).success(function (data) {
+            debugger;
+        }).error(function (err) {
+            debugger;
+        })
     }
 
     function register(oUser) {
       debugger;
       UserService.registration(oUser).success(function (data) {
         debugger;
-      }).error(function (msg) {
+      }).error(function (err) {
         debugger;
       })
     }

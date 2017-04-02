@@ -18,29 +18,56 @@
  * Created by GFalcon on 09.01.2017.
  */
 (function () {
-  'use strict';
-  angular.module('gesem').controller('MainCtrl', MainCtrl);
+    'use strict';
+    angular.module('gesem').controller('MainCtrl', MainCtrl);
 
-  MainCtrl.$inject = ['$route', '$routeParams', '$location', '$rootScope'];
-  function MainCtrl($route, $routeParams, $location, $rootScope) {
-    this.$route = $route;
-    this.$location = $location;
-    this.$routeParams = $routeParams;
+    MainCtrl.$inject = [
+        '$route', '$routeParams', '$location', '$rootScope', '$pagesSecurityService', '$userProvider'
+    ];
+    function MainCtrl($route, $routeParams, $location, $rootScope, $pagesSecurityService, $userProvider) {
+        var vm = this;
+        vm.$route = $route;
+        vm.$location = $location;
+        vm.$routeParams = $routeParams;
 
-    var previousSuccwssRoute = '';
+        vm.init = initMainController;
 
-    $rootScope.$on('$locationChangeStart', function (angularEvent, newUrl, oldUrl) {
-      debugger;
+        var previousSuccessRoute;
 
-    });
+        initMainController();
 
-    $rootScope.$on('$routeChangeSuccess', function (angularEvent, current) {
-      previousSuccwssRoute = current.$$route.originalPath;
-    });
+        function initMainController() {
+            previousSuccessRoute = '';
+        }
 
-    $rootScope.$on('$routeChangeError', function (angularEvent, current) {
-      debugger;
-    })
-  }
+        $scope.goTo = function (path) {
+            $location.path(path);
+        };
+
+        angular.extend($scope, $userProvider, true);
+
+        $scope.$on('$locationChangeStart', function (event, nextUrl, prevUrl) {
+            if (nextUrl.indexOf("/goToBack") >= 0) {
+                if (previousSuccessRoute) {
+                    $location.path(previousSuccessRoute);
+                } else {
+                    $location.path('/login');
+                }
+                return;
+            }
+
+            if ($location.path() !== '/login' || nextUrl.indexOf('login') == -1) {
+                if (!$pagesSecurityService.checkAuthorize($location.path())) {
+                    alert('Access denied!');
+                    $location.path(prevUrl.split('#')[1]);
+                }
+            }
+        });
+
+        $rootScope.$on('$routeChangeSuccess', function (angularEvent, current) {
+            previousSuccessRoute = current.$$route.originalPath;
+        });
+
+    }
 
 })();

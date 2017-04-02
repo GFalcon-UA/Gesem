@@ -17,3 +17,29 @@
 /**
  * Created by GFalcon on 08.01.2017.
  */
+(function () {
+    'use strict'
+
+    angular.module('gesem')
+        .directive('gfMenu', gfMenu);
+
+    function gfMenu() {
+
+        var directive = {
+            link: link,
+            restrict: 'EA',
+            templateUrl: '/gesem/components/menu/gf-menu.html',
+            replace: true,
+            controller: 'MainCtrl',
+            controllerAs: 'vm'
+        };
+
+        return directive;
+
+        function link(scope, element, attrs) {
+            /* */
+        }
+
+    }
+
+})();

@@ -20,79 +20,71 @@
 (function () {
   'use strict';
 
-  angular.module('gesem').service('gfREST', gfREST);
+    angular.module('authorizationModule').service('UserService', UserService);
 
-  gfREST.$inject = ['$http', '$q'];
-  function gfREST($http, $q) {
-    var self = this;
+    UserService.$inject = ['$http', '$q', '$userProvider'];
+    function UserService($http, $q, $userProvider) {
 
-    self.serv = {
-      get: getRequest,
-      post: postRequest,
-      del: deleteRequest,
-      put: putRequest
+        var oUserService = {
+            auth: authUser,
+            registration: registerUser,
+            checkLogin: checkLogin
     };
 
     function sendRestRequest(req, callback) {
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
+        req.url = 'auth/' + req.url;
+
       $http(req).then(
         function (response) {
           deferred.resolve(response.data);
-          debugger;
           return cb();
         },
         function (response) {
           deferred.reject(response);
-          debugger;
           return cb(response);
         }.bind(this));
       return deferred.promise;
     }
 
-    return self.serv;
+        return oUserService;
 
-    function getRequest(sURL, oParams, callback) {
+        function authUser(oUser, callback) {
       var req = {
-        method: 'GET',
-        url: sURL,
-        params: oParams
+          method: 'POST',
+          url: 'authenticate',
+          params: {
+              login: oUser.sLogin,
+              password: oUser.sPassword
+          }
       };
       return sendRestRequest(req, callback);
-
     }
 
-    function postRequest(sURL, oParams, oData, callback) {
+        function registerUser(oUser, callback) {
       var req = {
         method: 'POST',
-        url: sURL,
-        data: oData,
-        params: oParams
+          url: 'register',
+          params: {
+              login: oUser.sLogin,
+              password: oUser.sPassword
+          }
       };
       return sendRestRequest(req, callback);
     }
 
-    function deleteRequest(sURL,oParams, callback) {
+        function checkLogin(sLogin, callback) {
       var req = {
-        method: 'DELETE',
-        url: sURL,
-        params: oParams
-      };
-      return sendRestRequest(req, callback);
-    }
-
-    function putRequest(sURL, oParams, oData, callback) {
-      var req = {
-        method: 'PUT',
-        url: sURL,
-        data: oData,
-        params: oParams
+          method: 'GET',
+          url: 'checkLogin',
+          params: {
+              login: sLogin
+          }
       };
       return sendRestRequest(req, callback);
     }
 
   }
-
-
 })();

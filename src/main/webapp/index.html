@@ -33,20 +33,27 @@
     <script src="libs/angular-js/1.6.1/angular-cookies.min.js"></script>
     <script src="libs/angular-js/1.6.1/angular-route.min.js"></script>
     <script src="libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="libs/angular-bootstrap/2.4.0/ui-bootstrap-tpls-2.4.0.min.js"></script>
+    <script src="libs/angular-bootstrap/2.5.0/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="libs/angular-smart-table/2.1.8/smart-table.min.js"></script>
     <script src="libs/handsontable/handsontable.full.min.js"></script>
     <script src="libs/handsontable/ngHandsontable.min.js"></script>
 
+    <script src="gesem/components/authorization/authorization.module.js"></script>
+    <script src="gesem/components/authorization/user.service.js"></script>
+    <script src="gesem/components/authorization/login.controller.js"></script>
+    <script src="gesem/components/security/security.module.js"></script>
+
     <script src="gesem/app.module.js"></script>
     <script src="gesem/app.route.js"></script>
     <script src="gesem/app.controller.js"></script>
-    <script src="gesem/utils/rest.service.js"></script>
-    <script src="gesem/app/login/user.service.js"></script>
-    <script src="gesem/app/login/login.controller.js"></script>
+    <script src="gesem/components/derectives/menu/gf-menu.directive.js"></script>
+    <script src="gesem/components/rest-interceptors/requestInterceptors.factory.js"></script>
+    <script src="gesem/components/rest-interceptors/responseInterceptors.factory.js"></script>
+    <script src="gesem/components/rest-interceptors/httpProvider.config.js"></script>
 
 </head>
 <body ng-controller="MainCtrl">
+<gf-menu></gf-menu>
 <div ng-view></div>
 </body>
 </html>

@@ -21,11 +21,13 @@
   'use strict';
 
   angular.module('gesem',[
-    'ngCookies',
-    'ngRoute',
-    'ui.bootstrap',
-    'ngHandsontable',
-    'smart-table'
+      'authorizationModule',
+      'securityModule',
+      'ngCookies',
+      'ngRoute',
+      'ui.bootstrap',
+      'ngHandsontable',
+      'smart-table'
   ]);
   
 })();
