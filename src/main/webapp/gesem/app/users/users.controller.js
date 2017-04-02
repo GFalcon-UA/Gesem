@@ -13,12 +13,29 @@
     function UsersCtrl(UsersService) {
         var vm = this;
 
+        vm.aUsers = [];
+
         vm.init = initController;
+
+        vm.func = {
+            getUsersList: getUsersList
+        };
+
         vm.initController();
 
         function initController() {
-
+            vm.func.getUsersList();
         }
+
+        function getUsersList() {
+            UsersService.getUsersList().then
+            (function (data) {
+                vm.aUsers = data;
+            }, function (err) {
+                console.error(err);
+            })
+        }
+
 
     }
 })();
