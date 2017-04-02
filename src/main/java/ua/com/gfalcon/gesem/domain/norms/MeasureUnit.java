@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.gesem.domain.norms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
 import javax.persistence.*;
@@ -34,11 +35,14 @@ import java.util.Set;
 @Table(name = "MEASURE_UNITS")
 public class MeasureUnit extends AbstractEntity {
 
+    @JsonProperty(value = "sName")
     @Column(unique = true)
     private String name;
 
+    @JsonProperty(value = "sSmallName")
     private String smallName;
 
+    @JsonProperty(value = "aMaterials")
     @OneToMany(mappedBy = "measureUnit", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Material> materialSet = new HashSet<>();
 

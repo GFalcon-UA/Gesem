@@ -1,5 +1,6 @@
 package ua.com.gfalcon.gesem.domain.cms.specification;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 import ua.com.gfalcon.gesem.domain.norms.Material;
 
@@ -17,12 +18,15 @@ import java.math.BigDecimal;
 @Entity(name = "SpecificationsEntry")
 public class SpecificationsEntry extends AbstractEntity {
 
+    @JsonProperty(value = "oMaterial")
     @ManyToOne
     private Material material;
 
+    @JsonProperty(value = "oWork")
     @ManyToOne
     private StagesWork work;
 
+    @JsonProperty(value = "nCoefficient")
     private BigDecimal coef = new BigDecimal(1); // коэффициент для расчета материалов
 
     public SpecificationsEntry() {

@@ -16,17 +16,14 @@
 
 package ua.com.gfalcon.gesem.domain.cms.specification;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import ua.com.gfalcon.entitydao.AbstractEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Gesem
@@ -39,12 +36,15 @@ import java.util.Set;
 @Table(name = "STAGES")
 public class Stage extends ParentStage {
 
+    @JsonProperty(value = "sName")
     @Column(unique = true)
     private String name;
 
+    @JsonProperty(value = "oParentStage")
     @ManyToOne
     private ParentStage parentStage;
 
+    @JsonProperty(value = "oWorks")
     @ElementCollection
     @CollectionTable(name = "amount_works")
     @Column(name = "amount")
@@ -54,6 +54,7 @@ public class Stage extends ParentStage {
     /**
      * номер по порядку для сортировки
      */
+    @JsonProperty(value = "nSequence")
     private Integer sequence;
 
     protected Stage() {

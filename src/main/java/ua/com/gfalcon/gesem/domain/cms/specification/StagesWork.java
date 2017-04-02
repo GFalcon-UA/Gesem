@@ -1,5 +1,6 @@
 package ua.com.gfalcon.gesem.domain.cms.specification;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.gesem.domain.norms.Work;
 
 import javax.persistence.*;
@@ -16,9 +17,11 @@ import java.util.Set;
 @PrimaryKeyJoinColumn(name = "work_id")
 public class StagesWork extends Work {
 
+    @JsonProperty(value = "oParentStage")
     @ManyToOne
     private Stage parentStage;
 
+    @JsonProperty(value = "aSpecificationEntries")
     @OneToMany(mappedBy = "work", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<SpecificationsEntry> entrySet = new HashSet<>();
 

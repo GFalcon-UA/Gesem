@@ -23,6 +23,7 @@ import ua.com.gfalcon.gesem.dao.auth.UserDAO;
 import ua.com.gfalcon.gesem.domain.auth.User;
 import ua.com.gfalcon.gesem.exeptions.AuthenticationException;
 import ua.com.gfalcon.gesem.exeptions.AuthorizationException;
+import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class AuthService {
     private static final String UNSUCCESSFUL_REGULAR = "Login or password incorrect";
     private static final String UNSUCCESSFUL_BLOCKED = "Account is blocked. Please, contact with administrator";
     private static final String UNSUCCESSFUL_PASSWORD_EXPIRED = "Password expired";
+    private static final String ADMIN_LOGIN = "admin";
     @Autowired
     private UserDAO userDAO;
 
@@ -54,7 +56,7 @@ public class AuthService {
     }
 
     private void init() {
-        User admin = new User("admin", "secret");
+        User admin = new User(ADMIN_LOGIN, "secret");
         admin.setActivated(true);
         admin.setAdministrator(true);
         admin.setAmountPasswordFailed(1000000);
@@ -66,7 +68,7 @@ public class AuthService {
         User user;
         List<User> candidate = userDAO.findAllBy("login", login);
         if (candidate.isEmpty() || candidate.size() == 0) {
-            String massege = String.format("Login %s not faund", login);
+            String massege = String.format("Login %s not found", login);
             throw new AuthenticationException(massege);
         }
         for (User us : candidate) {
@@ -94,4 +96,47 @@ public class AuthService {
         chekInitDB();
         return userDAO.findAllBy("login", login).size() <= 0;
     }
+
+    @Transactional(readOnly = true)
+    public List<User> getUsersList() {
+        return userDAO.findAll();
+    }
+
+    public boolean setActivateStatusByUserId(Long userId, Boolean activateStatus) throws RecordNotFoundException {
+        User user = getUserById(userId);
+        if (user == null) {
+            return false;
+        }
+        user.setActivated(activateStatus);
+        try {
+            userDAO.saveOrUpdate(user);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserById(Long userId) throws RecordNotFoundException {
+        User user = null;
+        if (userDAO.findById(userId).isPresent()) {
+            user = userDAO.findById(userId).get();
+        } else {
+            throw new RecordNotFoundException(String.format("User [id=%s] not found", userId));
+        }
+        return user;
+    }
+
+    public void deleteUserById(Long userId) {
+        userDAO.delete(userId);
+    }
+
+    public User updateUser(User user) {
+        return userDAO.saveOrUpdate(user);
+    }
+
+    public User getMainAdminUser() {
+        return userDAO.findByExpected("login", ADMIN_LOGIN);
+    }
+
 }

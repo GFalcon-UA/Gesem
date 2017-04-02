@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.gesem.domain.cms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
 import javax.persistence.*;
@@ -33,16 +34,21 @@ import java.util.Set;
 @Table(name = "PARTNERS")
 public class Partner extends AbstractEntity {
 
+    @JsonProperty(value = "sName")
     @Column(unique = true)
     private String name;
 
+    @JsonProperty(value = "aObjects")
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<BuildObject> objects = new HashSet<>();
 
+    @JsonProperty(value = "sPhones")
     private String phones;
 
+    @JsonProperty(value = "sContactPersons")
     private String contactPersons;
 
+    @JsonProperty(value = "sCodeUSREOU")
     private String codeUSREOU;
 
     protected Partner() {

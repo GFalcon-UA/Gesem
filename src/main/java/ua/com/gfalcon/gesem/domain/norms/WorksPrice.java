@@ -1,5 +1,6 @@
 package ua.com.gfalcon.gesem.domain.norms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 @Entity(name = "WorksPrice")
 public class WorksPrice extends Price {
 
+    @JsonProperty(value = "oWorksType")
     @ManyToOne
     private WorksType worksType;
 

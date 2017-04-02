@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.gesem.domain.norms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
 import javax.persistence.*;
@@ -37,21 +38,25 @@ import java.util.Set;
 @Table(name = "WORKS_TYPES")
 public class WorksType extends AbstractEntity {
 
+    @JsonProperty(value = "sName")
     @Column(unique = true)
     private String name;
 
+    @JsonProperty(value = "aWorks")
     @OneToMany(mappedBy = "worksType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Work> works = new HashSet<>();
 
     /**
      * Стоимость и конечная дата действия стоимости
      */
+    @JsonProperty(value = "aCosts")
     @OneToMany(mappedBy = "worksType", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<WorksPrice> cost = new HashSet<>();
 
     /**
      * Нормы расхода базовых материалов
      */
+    @JsonProperty(value = "oBasicBOM")
     @ElementCollection
     @CollectionTable(name = "basic_bom")
     @Column(name = "norm")

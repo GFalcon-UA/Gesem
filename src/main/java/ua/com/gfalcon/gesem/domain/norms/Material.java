@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.gesem.domain.norms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 import ua.com.gfalcon.gesem.domain.cms.specification.SpecificationsEntry;
 
@@ -35,15 +36,19 @@ import java.util.Set;
 @Table(name = "MATERIALS")
 public class Material extends AbstractEntity{
 
+    @JsonProperty(value = "sName")
     @Column(unique = true)
     private String name;
 
+    @JsonProperty(value = "oMeasureUnit")
     @ManyToOne
     private MeasureUnit measureUnit;
 
+    @JsonProperty(value = "aCosts")
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<MaterialsPrice> costs = new HashSet<>();
 
+    @JsonProperty(value = "sSpecificationsEntries")
     @OneToMany(mappedBy = "material", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<SpecificationsEntry> specificationsEntries = new HashSet<>();
 

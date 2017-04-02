@@ -1,5 +1,6 @@
 package ua.com.gfalcon.gesem.domain.norms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
@@ -19,9 +20,11 @@ import java.util.Map;
 @MappedSuperclass
 public class Price extends AbstractEntity {
 
+    @JsonProperty(value = "dStartDate")
     @Temporal(TemporalType.DATE)
     private Date startDate;
 
+    @JsonProperty(value = "nCost")
     private BigDecimal cost;
 
     protected Price() {

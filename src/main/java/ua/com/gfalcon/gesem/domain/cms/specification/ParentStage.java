@@ -1,5 +1,6 @@
 package ua.com.gfalcon.gesem.domain.cms.specification;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import ua.com.gfalcon.entitydao.AbstractEntity;
@@ -17,12 +18,13 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class ParentStage extends AbstractEntity {
 
+    @JsonProperty(value = "aStages")
+    @OneToMany(mappedBy = "parentStage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Stage> stages = new HashSet<>();
+
     protected ParentStage() {
 
     }
-
-    @OneToMany(mappedBy = "parentStage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<Stage> stages = new HashSet<>();
 
     public Set<Stage> getStages() {
         return stages;

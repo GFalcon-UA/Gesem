@@ -1,15 +1,16 @@
 package ua.com.gfalcon.gesem.controllers;
 
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import ua.com.gfalcon.gesem.domain.cms.Partner;
 import ua.com.gfalcon.gesem.services.CustomerService;
-import ua.com.gfalcon.utils.JsonRestUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Oleksii Khalikov
@@ -22,11 +23,38 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @RequestMapping(value = "customers", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    ResponseEntity getCustomers() {
-        return JsonRestUtils.toJsonResponse(HttpStatus.OK, true);
+    @RequestMapping(value = "/customer", method = RequestMethod.GET)
+    public @ResponseBody String getCustomers(@RequestParam(name = "nID", value = "false") Long nID) {
+        List<Partner> result = null;
+        if (nID == null) {
+            result = customerService.getCustomersList();
+        } else {
+            Partner partner = null;
+            try {
+                partner = customerService.getCustomerById(nID);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+            if (partner != null) {
+                result = new ArrayList<>();
+                result.add(partner);
+            }
+        }
+
+        return JSONValue.toJSONString(result);
+    }
+
+    @RequestMapping(value = "/create-customer", method = RequestMethod.POST)
+    public void createCustomer(@RequestBody String body) {
+        Partner newPartner = null;
+        try {
+            newPartner = (Partner) new JSONParser().parse(body);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (newPartner != null) {
+            customerService.updatePartner(newPartner);
+        }
     }
 
 }

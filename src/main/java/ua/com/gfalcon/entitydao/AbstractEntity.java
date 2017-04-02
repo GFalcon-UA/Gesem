@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.entitydao;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.brunneng.jom.annotations.Identifier;
 
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,7 @@ public class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     //@Column(name = "ID")
+    @JsonProperty(value = "nID")
     private Long id;
 
     @Identifier

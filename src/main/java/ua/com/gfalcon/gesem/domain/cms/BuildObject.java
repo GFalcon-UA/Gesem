@@ -16,16 +16,15 @@
 
 package ua.com.gfalcon.gesem.domain.cms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import ua.com.gfalcon.entitydao.AbstractEntity;
 import ua.com.gfalcon.gesem.domain.cms.specification.ParentStage;
-import ua.com.gfalcon.gesem.domain.cms.specification.Stage;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Gesem
@@ -38,13 +37,17 @@ import java.util.Set;
 @Table(name = "BUILD_OBJECTS")
 public class BuildObject extends ParentStage {
 
+    @JsonProperty(value = "sName")
     private String name;
 
+    @JsonProperty(value = "oOwner")
     @ManyToOne
     private Partner owner;
 
+    @JsonProperty(value = "sAddress")
     private String address;
 
+    @JsonProperty(value = "nOverheadCosts")
     private BigDecimal overheadCosts = new BigDecimal(0);
 
     protected BuildObject() {

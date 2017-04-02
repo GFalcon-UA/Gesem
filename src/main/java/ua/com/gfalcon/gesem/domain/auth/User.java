@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.gesem.domain.auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.codec.language.Caverphone2;
 import org.joda.time.DateTime;
 import ua.com.gfalcon.entitydao.AbstractEntity;
@@ -36,25 +37,32 @@ import java.util.Date;
 @Table(name = "USERS")
 public class User extends AbstractEntity {
 
+    @JsonProperty(value = "sLogin")
     @Column(name = "LOGIN", nullable = false, unique = true)
     private String login;
 
+    @JsonProperty(value = "sPassword")
     @Column(name = "PASSWORD")
     private String password;
 
+    @JsonProperty(value = "nAmountPasswordFailed")
     @Column(name = "AMOUNT_PASS_FAIL")
     private Integer amountPasswordFailed;
 
+    @JsonProperty(value = "dLastDatePasswordFailed")
     @Temporal(TemporalType.DATE)
     @Column(name = "LAST_DATE_FAILED_PASSWORD")
     private Date lastDatePasswordFailed;
 
+    @JsonProperty(value = "bActivated")
     @Column(name = "ACTIATED")
     private boolean activated;
 
+    @JsonProperty(value = "bAdministrator")
     @Column(name = "ADMINISTRATOR")
     private boolean administrator;
 
+    @JsonProperty(value = "dRegisterDate")
     @Temporal(TemporalType.DATE)
     @Column(name = "REGISTERED")
     private Date registerDate;

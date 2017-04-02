@@ -16,6 +16,7 @@
 
 package ua.com.gfalcon.gesem.domain.norms;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
 import javax.persistence.*;
@@ -35,15 +36,18 @@ import java.util.Map;
 //@MappedSuperclass
 public class Work extends AbstractEntity {
 
+    @JsonProperty(value = "sName")
     @Column(unique = true)
     private String name;
 
+    @JsonProperty(value = "oWorkType")
     @ManyToOne
     private WorksType worksType;
 
     /**
      * Коэффициенты для расчета расхода базовых материалов
      */
+    @JsonProperty(value = "oBasicBomCoefficients")
     @ElementCollection
     @CollectionTable(name = "basic_bom_coefficients")
     @Column(name = "coefficient")
@@ -53,6 +57,7 @@ public class Work extends AbstractEntity {
     /**
      * Нормы расхода специфических материалов
      */
+    @JsonProperty(value = "oSpecificBOM")
     @ElementCollection
     @CollectionTable(name = "specific_bom")
     @Column(name = "norm")
