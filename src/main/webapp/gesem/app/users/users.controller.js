@@ -18,7 +18,8 @@
         vm.init = initController;
 
         vm.func = {
-            getUsersList: getUsersList
+            getUsersList: getUsersList,
+            deleteUser: deleteUser
         };
 
         vm.initController();
@@ -34,6 +35,10 @@
             }, function (err) {
                 console.error(err);
             })
+        }
+
+        function deleteUser(nUserId) {
+
         }
 
 

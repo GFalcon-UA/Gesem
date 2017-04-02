@@ -14,6 +14,7 @@
         var oUsersService = {};
 
         oUsersService.getUsersList = getUsersList;
+        oUsersService.deleteUserById = deleteUserById;
 
         function sendRestRequest(req, callback) {
             var cb = callback || angular.noop;
@@ -46,6 +47,17 @@
                 method: 'GET',
                 url: 'list',
                 params: {}
+            };
+            return sendRestRequest(req, callback);
+        }
+
+        function deleteUserById(nUserId, callback) {
+            var req = {
+                method: 'DELETE',
+                url: 'delete_user_by_id',
+                params: {
+                    nUserId: nUserId
+                }
             };
             return sendRestRequest(req, callback);
         }
