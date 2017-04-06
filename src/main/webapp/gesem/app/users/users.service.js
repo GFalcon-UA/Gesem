@@ -15,6 +15,7 @@
 
         oUsersService.getUsersList = getUsersList;
         oUsersService.deleteUserById = deleteUserById;
+        oUsersService.updateUser = updateUser;
 
         function sendRestRequest(req, callback) {
             var cb = callback || angular.noop;
@@ -54,9 +55,25 @@
         function deleteUserById(nUserId, callback) {
             var req = {
                 method: 'DELETE',
-                url: 'delete_user_by_id',
+                url: 'delete',
                 params: {
                     nUserId: nUserId
+                }
+            };
+            return sendRestRequest(req, callback);
+        }
+
+        function updateUser(oUser, callback) {
+            var req = {
+                method: 'PUT',
+                url: 'update',
+                params: {
+                    nUserId: oUser.nID
+                },
+                data: {
+                    bActivated: oUser.bActivated,
+                    bAdministrator: oUser.bAdministrator,
+                    sPassword: oUser.sPassword
                 }
             };
             return sendRestRequest(req, callback);
