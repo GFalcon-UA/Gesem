@@ -18,39 +18,34 @@
  * Created by GFalcon on 09.01.2017.
  */
 (function () {
-  'use strict';
+    'use strict';
 
-  angular
-    .module('gesem')
-    .constant('baseUrl', window.location.href)
-    .config(routeConfig);
+    angular
+        .module('gesem')
+        .constant('baseUrl', window.location.href)
+        .config(routeConfig);
 
-  routeConfig.$inject = ['$routeProvider', '$locationProvider', 'baseUrl'];
-  function routeConfig($routeProvider, $locationProvider, baseUrl) {
+    routeConfig.$inject = ['$routeProvider', '$locationProvider', 'baseUrl'];
+    function routeConfig($routeProvider, $locationProvider, baseUrl) {
 
-    $routeProvider
-      .when('/', {
-          redirectTo: 'login'
-      });
+        $routeProvider
+            .when('/login', {
+                templateUrl: "gesem/app/login/login.html",
+                controller: 'LoginPageCtrl',
+                controllerAs: 'vm'
+            })
+            .when('/users', {
+                templateUrl: "gesem/app/users/users.html",
+                controller: 'UsersCtrl',
+                controllerAs: 'vm'
+            });
 
-    $routeProvider
-        .when('/login', {
-            templateUrl: "gesem/components/authorization/login.html",
-            controller: 'LoginPageCtrl',
-            controllerAs: 'vm'
-        })
-        .when('/users', {
-            templateUrl: "gesem/app/users/users.html",
-            controller: 'UsersCtrl',
-            controllerAs: 'vm'
+        $routeProvider.otherwise({
+            redirectTo: "/goToBack"
         });
 
-    $routeProvider.otherwise({
-      redirectTo: "/goToBack"
-    });
+        $locationProvider.html5Mode(true);
 
-      //$locationProvider.html5Mode(true);
-
-  }
+    }
 
 })();

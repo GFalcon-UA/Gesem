@@ -30,7 +30,13 @@
         vm.$location = $location;
         vm.$routeParams = $routeParams;
 
+        vm.isShowMenu = false;
+
         vm.init = initMainController;
+        vm.func = {
+            goTo: goTo,
+            logout: logout
+        };
 
         var previousSuccessRoute;
 
@@ -38,15 +44,26 @@
 
         function initMainController() {
             previousSuccessRoute = '';
+            if ($userProvider.getUser()) {
+                goTo('/users');
+            } else {
+                logout();
+            }
         }
 
-        $scope.goTo = function (path) {
+        function goTo(path) {
             $location.path(path);
-        };
+        }
 
-        angular.extend($scope, $userProvider, true);
+        function logout() {
+            vm.isShowMenu = false;
+            $userProvider.setUser(null);
+            goTo('/login');
+        }
 
-        $scope.$on('$locationChangeStart', function (event, nextUrl, prevUrl) {
+        angular.extend($rootScope, $userProvider, true);
+
+        $rootScope.$on('$locationChangeStart', function (event, nextUrl, prevUrl) {
             if (nextUrl.indexOf("/goToBack") >= 0) {
                 if (previousSuccessRoute) {
                     $location.path(previousSuccessRoute);
@@ -56,9 +73,10 @@
                 return;
             }
 
-            if ($location.path() !== '/login' || nextUrl.indexOf('login') == -1) {
+            if ($location.path() !== '/login') {
                 if (!$pagesSecurityService.checkAuthorize($location.path())) {
                     alert('Access denied!');
+                    debugger;
                     $location.path(prevUrl.split('#')[1]);
                 }
             }
@@ -66,6 +84,10 @@
 
         $rootScope.$on('$routeChangeSuccess', function (angularEvent, current) {
             previousSuccessRoute = current.$$route.originalPath;
+        });
+
+        $rootScope.$on('entered-in-the-system', function () {
+            vm.isShowMenu = true;
         });
 
     }

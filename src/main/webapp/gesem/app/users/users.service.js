@@ -7,7 +7,7 @@
 
     angular
         .module('gesem')
-        .service('UsersService', UsersService);
+        .factory('UsersService', UsersService);
 
     UsersService.$inject = ['$http', '$q'];
     function UsersService($http, $q) {
@@ -21,7 +21,7 @@
             var cb = callback || angular.noop;
             var deferred = $q.defer();
 
-            req.url = 'users/' + req.url;
+            req.url = '/api/users/' + req.url;
 
             $http(req).then(
                 function (response) {

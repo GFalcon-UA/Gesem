@@ -6,7 +6,7 @@
     'use strict';
 
     angular
-        .module('authorizationModule')
+        .module('gesem')
         .factory('$userProvider', function () {
 
             var rolesEnum = {
@@ -15,6 +15,21 @@
             };
 
             var setUser = function (u) {
+                if (u) {
+                    if (u.bAdministrator) {
+                        u.Roles = {
+                            Admin: 0,
+                            User: 1
+                        };
+                    } else {
+                        u.Roles = {
+                            User: 1
+                        };
+                    }
+                    if (!u.bActivated) {
+                        u.Roles = {};
+                    }
+                }
                 this.user = u;
             };
 

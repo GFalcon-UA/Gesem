@@ -18,7 +18,7 @@
  * Created by GFalcon on 08.01.2017.
  */
 (function () {
-    'use strict'
+    'use strict';
 
     angular.module('gesem')
         .directive('gfMenu', gfMenu);
@@ -38,6 +38,7 @@
 
         function link(scope, element, attrs) {
             /* */
+            debugger;
         }
 
     }

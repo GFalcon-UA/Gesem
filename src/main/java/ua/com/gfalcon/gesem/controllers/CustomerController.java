@@ -18,7 +18,7 @@ import java.util.List;
  * @since 1.0
  */
 @Controller
-@RequestMapping(value = "/cms")
+@RequestMapping(value = "api/cms")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;

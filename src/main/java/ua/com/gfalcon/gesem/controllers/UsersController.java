@@ -20,7 +20,7 @@ import java.util.Map;
  * @since 1.0.0
  */
 @Controller
-@RequestMapping(value = "/users")
+@RequestMapping(value = "api/users")
 public class UsersController {
     @Autowired
     private AuthService userService;

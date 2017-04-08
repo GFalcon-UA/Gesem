@@ -25,7 +25,9 @@ import ua.com.gfalcon.gesem.exeptions.AuthenticationException;
 import ua.com.gfalcon.gesem.exeptions.AuthorizationException;
 import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Oleksii Khalikov
@@ -95,6 +97,25 @@ public class AuthService {
     public boolean isLoginUnique(String login) {
         chekInitDB();
         return userDAO.findAllBy("login", login).size() <= 0;
+    }
+
+    @Transactional(readOnly = true)
+    public Map<String, Object> getUserInfoByLogin(String sLogin) throws RecordNotFoundException {
+        Map<String, Object> userInfo = new HashMap<>();
+        User user = null;
+        if (userDAO.findBy("login", sLogin).isPresent()) {
+            user = userDAO.findBy("login", sLogin).get();
+        } else {
+            throw new RecordNotFoundException(String.format("User [sLogin=%s] not found", sLogin));
+        }
+        userInfo.put("nID", user.getId());
+        userInfo.put("sLogin", user.getLogin());
+        userInfo.put("nAmountPasswordFailed", user.getAmountPasswordFailed());
+        userInfo.put("dLastDatePasswordFailed", user.getLastDatePasswordFailed());
+        userInfo.put("dRegisterDate", user.getRegisterDate());
+        userInfo.put("bAdministrator", user.isAdministrator());
+        userInfo.put("bActivated", user.isActivated());
+        return userInfo;
     }
 
     @Transactional(readOnly = true)

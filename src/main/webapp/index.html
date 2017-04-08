@@ -38,22 +38,26 @@
     <script src="libs/handsontable/handsontable.full.min.js"></script>
     <script src="libs/handsontable/ngHandsontable.min.js"></script>
 
-    <script src="gesem/components/authorization/authorization.module.js"></script>
-    <script src="gesem/components/authorization/user.service.js"></script>
-    <script src="gesem/components/authorization/login.controller.js"></script>
-    <script src="gesem/components/security/security.module.js"></script>
-
     <script src="gesem/app.module.js"></script>
-    <script src="gesem/app.route.js"></script>
-    <script src="gesem/app.controller.js"></script>
-    <script src="gesem/components/derectives/menu/gf-menu.directive.js"></script>
     <script src="gesem/components/rest-interceptors/requestInterceptors.factory.js"></script>
     <script src="gesem/components/rest-interceptors/responseInterceptors.factory.js"></script>
     <script src="gesem/components/rest-interceptors/httpProvider.config.js"></script>
+    <script src="gesem/components/user/user.provider.js"></script>
+    <script src="gesem/components/user/user.service.js"></script>
+    <script src="gesem/app/users/users.service.js"></script>
+    <script src="gesem/components/modal/modal.service.js"></script>
+    <script src="gesem/components/menu/gf-menu.directive.js"></script>
+
+    <script src="gesem/components/security/security.service.js"></script> <!-- $userProvider -->
+
+    <script src="gesem/app.controller.js"></script>
+    <script src="gesem/app/users/users.controller.js"></script>
+    <script src="gesem/app/login/login.controller.js"></script>
+    <script src="gesem/app.route.js"></script>
 
 </head>
 <body ng-controller="MainCtrl">
-<gf-menu></gf-menu>
+<gf-menu ng-if="vm.isShowMenu"></gf-menu>
 <div ng-view></div>
 </body>
 </html>

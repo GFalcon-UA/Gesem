@@ -23,10 +23,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.gfalcon.gesem.exeptions.AuthenticationException;
+import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 import ua.com.gfalcon.gesem.services.AuthService;
 import ua.com.gfalcon.utils.JsonRestUtils;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * @author Oleksii Khalikov
@@ -35,16 +37,15 @@ import javax.servlet.http.HttpSession;
  * Created by Gesem on 06.01.2017
  */
 @Controller
-@RequestMapping(value = "/auth")
+@RequestMapping(value = "api/auth")
 @SessionAttributes("loginId")
 public class AuthorizationController {
     @Autowired
     private AuthService authorizationService;
 
-    @RequestMapping(value = "authenticate", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    ResponseEntity authenticate(@RequestParam String login, @RequestParam String password,
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity authenticate(@RequestParam(name = "sLogin") String login, @RequestBody String password,
             Model model) {
         boolean response;
         try {
@@ -56,16 +57,21 @@ public class AuthorizationController {
         }
         if (response) {
             model.addAttribute("loginId", login);
-            return JsonRestUtils.toJsonResponse(HttpStatus.OK, true);
+            Map<String, Object> user = null;
+            try {
+                user = authorizationService.getUserInfoByLogin(login);
+            } catch (RecordNotFoundException e) {
+                return JsonRestUtils.toJsonErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            }
+            return JsonRestUtils.toJsonResponse(HttpStatus.OK, user);
         } else {
             return JsonRestUtils.toJsonResponse(HttpStatus.LOCKED, false);
         }
     }
 
-    @RequestMapping(value = "register", method = RequestMethod.POST)
-    public
-    @ResponseBody
-    ResponseEntity register(@RequestParam String login, @RequestParam String password,
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public @ResponseBody
+    ResponseEntity register(@RequestParam(name = "sLogin") String login, @RequestBody String password,
             Model model) {
         System.out.println("in Register 2");
         try {
@@ -80,10 +86,8 @@ public class AuthorizationController {
         }
     }
 
-    @RequestMapping(value = "checkLogin", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    ResponseEntity checkLogin(@RequestParam String login) {
+    @RequestMapping(value = "/checkLogin", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity checkLogin(@RequestParam String login) {
         System.out.println("inCheckLogin");
         if (authorizationService.isLoginUnique(login)) {
             return JsonRestUtils.toJsonResponse(HttpStatus.ACCEPTED, true);
@@ -92,9 +96,14 @@ public class AuthorizationController {
         }
     }
 
-    @RequestMapping(value = "open", method = RequestMethod.GET)
+    @RequestMapping(value = "/open", method = RequestMethod.GET)
     public boolean gotoMain(HttpSession session) {
         return isAuth(session);
+    }
+
+    @RequestMapping(value = "/ping", method = RequestMethod.GET)
+    public @ResponseBody ResponseEntity ping() {
+        return JsonRestUtils.toJsonResponse(true);
     }
 
     private boolean isAuth(HttpSession session) {

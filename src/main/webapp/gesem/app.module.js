@@ -21,8 +21,6 @@
   'use strict';
 
   angular.module('gesem',[
-      'authorizationModule',
-      'securityModule',
       'ngCookies',
       'ngRoute',
       'ui.bootstrap',

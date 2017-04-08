@@ -22,7 +22,7 @@
 
                     'responseError': function (rejection) {
 
-                        //var Modal= $injector.get('Modal');
+                        var Modal = $injector.get('Modal');
                         var $http = $injector.get('$http');
 
                         /**
@@ -33,6 +33,10 @@
                             alert("Виникла помилка при спробі звернення до сервера");
                             return rejection;
                         }
+
+                        debugger;
+
+                        Modal.inform.error()(rejection.data.message || rejection.data.serverMessage || (rejection.statusText === '' ? 'Виникла помилка: ' + rejection.status : rejection.statusText));
 
                         return $q.reject(rejection);
                     }
