@@ -529,5 +529,3 @@ buildNumber.properties
 .vscode
 /src/main/webapp/libs/angular-js/1.6.1/docs/
 /raw/
-!/src/main/webapp/gesem/app/users/users.service.js
-!/src/main/webapp/gesem/components/user/user.service.js
