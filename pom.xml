@@ -788,6 +788,23 @@
         </dependency>
 
         <!-- HADSONTABLE -->
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/ngHandsontable -->
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>ngHandsontable</artifactId>
+            <version>0.12.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>handsontable</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.webjars.bower</groupId>
+                    <artifactId>angular</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.webjars.bower/handsontable -->
         <dependency>
             <groupId>org.webjars.bower</groupId>
