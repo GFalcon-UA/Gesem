@@ -22,13 +22,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.com.gfalcon.gesem.exeptions.AuthenticationException;
-import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 import ua.com.gfalcon.gesem.services.AuthService;
 import ua.com.gfalcon.utils.JsonRestUtils;
 
 import javax.servlet.http.HttpSession;
-import java.util.Map;
 
 /**
  * @author Oleksii Khalikov
@@ -43,7 +40,7 @@ public class AuthorizationController {
     @Autowired
     private AuthService authorizationService;
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public @ResponseBody
     ResponseEntity authenticate(@RequestParam(name = "sLogin") String login, @RequestBody String password,
             Model model) {
@@ -67,7 +64,7 @@ public class AuthorizationController {
         } else {
             return JsonRestUtils.toJsonResponse(HttpStatus.LOCKED, false);
         }
-    }
+    }*/
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public @ResponseBody
@@ -86,7 +83,7 @@ public class AuthorizationController {
         }
     }
 
-    @RequestMapping(value = "/checkLogin", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/checkLogin", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity checkLogin(@RequestParam String login) {
         System.out.println("inCheckLogin");
         if (authorizationService.isLoginUnique(login)) {
@@ -94,7 +91,7 @@ public class AuthorizationController {
         } else {
             return JsonRestUtils.toJsonResponse(HttpStatus.NOT_ACCEPTABLE, false);
         }
-    }
+    }*/
 
     @RequestMapping(value = "/open", method = RequestMethod.GET)
     public boolean gotoMain(HttpSession session) {

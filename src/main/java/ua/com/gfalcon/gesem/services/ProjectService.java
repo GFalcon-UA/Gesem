@@ -3,14 +3,12 @@ package ua.com.gfalcon.gesem.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.com.gfalcon.gesem.dao.cms.BuildObjectDAO;
 import ua.com.gfalcon.gesem.dao.cms.specification.StageDAO;
 import ua.com.gfalcon.gesem.domain.cms.BuildObject;
 import ua.com.gfalcon.gesem.domain.cms.specification.ParentStage;
 import ua.com.gfalcon.gesem.domain.cms.specification.Stage;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,8 +27,8 @@ public class ProjectService {
     @Transactional(readOnly = true)
     public Stage getStageById(Long id) throws NoSuchFieldException {
         Stage stage;
-        if (stageDAO.findById(id).isPresent()) {
-            stage = stageDAO.findById(id).get();
+        if (stageDAO.exists(id)) {
+            stage = stageDAO.findOne(id);
         } else {
             throw new NoSuchFieldException(String.format("Stage [id = %s] not found", id));
         }
@@ -78,7 +76,7 @@ public class ProjectService {
     }
 
     public void updateStage(Stage stage) {
-        stageDAO.saveOrUpdate(stage);
+        stageDAO.save(stage);
     }
 
     public void deleteStageById(Long id) throws NoSuchFieldException {

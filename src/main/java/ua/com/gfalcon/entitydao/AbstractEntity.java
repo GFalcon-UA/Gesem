@@ -23,6 +23,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 
 /**
  * Abstract entity
@@ -32,10 +33,9 @@ import javax.persistence.MappedSuperclass;
  * @since v-1.0
  */
 @MappedSuperclass
-public class AbstractEntity {
+public class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    //@Column(name = "ID")
     @JsonProperty(value = "nID")
     private Long id;
 

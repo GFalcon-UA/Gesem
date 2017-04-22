@@ -6,13 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.gfalcon.gesem.dao.cms.specification.SpecificationsEntryDAO;
 import ua.com.gfalcon.gesem.dao.norms.*;
-import ua.com.gfalcon.gesem.domain.cms.specification.SpecificationsEntry;
 import ua.com.gfalcon.gesem.domain.norms.*;
 import ua.com.gfalcon.gesem.exeptions.HasChildrenEntityException;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,15 +44,15 @@ public class CommonDefinitionService {
         if (smallName != null) {
             measureUnit.setSmallName(smallName);
         }
-        measureUnitDAO.saveOrUpdate(measureUnit);
+        measureUnitDAO.save(measureUnit);
         return measureUnit;
     }
 
     @Transactional(readOnly = true)
     public MeasureUnit getMeasureUnitById(Long id) throws NoSuchFieldException {
         MeasureUnit result;
-        if (measureUnitDAO.findById(id).isPresent()) {
-            result = measureUnitDAO.findById(id).get();
+        if (measureUnitDAO.exists(id)) {
+            result = measureUnitDAO.findOne(id);
         } else {
             throw new NoSuchFieldException(String.format("MeasureUnit [id = %s] not found", id));
         }
@@ -63,12 +61,12 @@ public class CommonDefinitionService {
 
     @Transactional(readOnly = true)
     public void updateMeasureUnit(MeasureUnit measureUnit) {
-        measureUnitDAO.saveOrUpdate(measureUnit);
+        measureUnitDAO.save(measureUnit);
     }
 
     @Transactional(readOnly = true)
     public List<MeasureUnit> getMeasureUnits() {
-        List<MeasureUnit> measureUnitList = measureUnitDAO.findAll();
+        List<MeasureUnit> measureUnitList = (List<MeasureUnit>) measureUnitDAO.findAll();
         return measureUnitList;
     }
 
@@ -83,15 +81,15 @@ public class CommonDefinitionService {
             material.setMeasureUnit(measureUnit);
             updateMeasureUnit(measureUnit);
         }
-        materialDAO.saveOrUpdate(material);
+        materialDAO.save(material);
         return material;
     }
 
     @Transactional(readOnly = true)
     public Material getMaterialById(Long id) throws NoSuchFieldException {
         Material result;
-        if (materialDAO.findById(id).isPresent()) {
-            result = materialDAO.findById(id).get();
+        if (materialDAO.exists(id)) {
+            result = materialDAO.findOne(id);
         } else {
             throw new NoSuchFieldException(String.format("Material [id = %s] not found", id));
         }
@@ -103,7 +101,7 @@ public class CommonDefinitionService {
         try {
             oldMaterial = getMaterialById(material.getId());
         } catch (NoSuchFieldException e) {
-            materialDAO.saveOrUpdate(material);
+            materialDAO.save(material);
             return;
         }
 
@@ -121,7 +119,7 @@ public class CommonDefinitionService {
             }
         }
 
-        materialDAO.saveOrUpdate(material);
+        materialDAO.save(material);
     }
 
     private void removeMaterialFromMeasureUnit(@NotNull Material material, @NotNull MeasureUnit oldMU) {
@@ -129,41 +127,42 @@ public class CommonDefinitionService {
         updateMeasureUnit(oldMU);
     }
 
-    public void deleteMaterial(Material material) throws HasChildrenEntityException {
-        List<SpecificationsEntry> entries = specificationsEntryDAO.findAllBy("material", material);
-        if (entries.size() > 0) {
-            throw new HasChildrenEntityException(String.format(
-                    "Can't delete Material [id = %s]. It is included in specifications (include count = %s)",
-                    material.getId(), entries.size()));
-        }
+    /*
+        public void deleteMaterial(Material material) throws HasChildrenEntityException {
+            List<SpecificationsEntry> entries = specificationsEntryDAO.findAllBy("material", material);
+            if (entries.size() > 0) {
+                throw new HasChildrenEntityException(String.format(
+                        "Can't delete Material [id = %s]. It is included in specifications (include count = %s)",
+                        material.getId(), entries.size()));
+            }
 
-        Map<Material, BigDecimal> basicBOM = new HashMap<>();
-        List<WorksType> worksTypes = getWorksTypes();
-        for (WorksType type : worksTypes) {
-            basicBOM.putAll(type.getBasicBOM());
-        }
-        List<Work> works = getWorks();
-        for (Work work : works) {
-            basicBOM.putAll(work.getBasicBomCoeficients());
-            basicBOM.putAll(work.getSpecificBOM());
-        }
+            Map<Material, BigDecimal> basicBOM = new HashMap<>();
+            List<WorksType> worksTypes = getWorksTypes();
+            for (WorksType type : worksTypes) {
+                basicBOM.putAll(type.getBasicBOM());
+            }
+            List<Work> works = getWorks();
+            for (Work work : works) {
+                basicBOM.putAll(work.getBasicBomCoeficients());
+                basicBOM.putAll(work.getSpecificBOM());
+            }
 
-        if (basicBOM.containsKey(material)) {
-            throw new HasChildrenEntityException(
-                    String.format("Can't delete Material [id = %s]. It is included in base specifications",
-                            material.getId()));
-        }
+            if (basicBOM.containsKey(material)) {
+                throw new HasChildrenEntityException(
+                        String.format("Can't delete Material [id = %s]. It is included in base specifications",
+                                material.getId()));
+            }
 
-        MeasureUnit mu = material.getMeasureUnit();
-        if (mu != null) {
-            removeMaterialFromMeasureUnit(material, mu);
+            MeasureUnit mu = material.getMeasureUnit();
+            if (mu != null) {
+                removeMaterialFromMeasureUnit(material, mu);
+            }
+            materialDAO.delete(material);
         }
-        materialDAO.delete(material);
-    }
-
+    */
     @Transactional(readOnly = true)
     public List<Material> getMaterials() {
-        List<Material> list = materialDAO.findAll();
+        List<Material> list = (List<Material>) materialDAO.findAll();
         return list;
     }
 
@@ -180,12 +179,12 @@ public class CommonDefinitionService {
         if (price != null) {
             WorksPrice worksPrice = new WorksPrice(worksType, price, new DateTime(2000, 1, 1, 0, 0));
             worksType.addCost(worksPrice);
-            worksPriceDAO.saveOrUpdate(worksPrice);
+            worksPriceDAO.save(worksPrice);
         }
         if (basicBOM != null) {
             worksType.setBasicBOM(basicBOM);
         }
-        worksTypeDAO.saveOrUpdate(worksType);
+        worksTypeDAO.save(worksType);
     }
 
     public void setWorksPrice(@NotNull Long worksTypeId, @NotNull BigDecimal price, DateTime startDate)
@@ -201,7 +200,7 @@ public class CommonDefinitionService {
      * @param startDate - дата начала действия
      * @throws IllegalArgumentException при попытке задания отрицательной цены
      */
-    public void setPlanWorksPrice(@NotNull WorksType worksType, @NotNull BigDecimal price, DateTime startDate)
+    /*public void setPlanWorksPrice(@NotNull WorksType worksType, @NotNull BigDecimal price, DateTime startDate)
             throws IllegalArgumentException {
         if (price.intValue() < 0) {
             throw new IllegalArgumentException(
@@ -229,9 +228,9 @@ public class CommonDefinitionService {
             worksPrice.setCost(price);
         }
         worksPriceDAO.saveOrUpdate(worksPrice);
-    }
+    }*/
 
-    public void setPlanMaterialPrice(@NotNull Material material, @NotNull BigDecimal price, DateTime startDate)
+    /*public void setPlanMaterialPrice(@NotNull Material material, @NotNull BigDecimal price, DateTime startDate)
             throws IllegalArgumentException {
         if (price.intValue() < 0) {
             throw new IllegalArgumentException(
@@ -259,7 +258,7 @@ public class CommonDefinitionService {
             materialPrice.setCost(price);
         }
         materialsPriceDAO.saveOrUpdate(materialPrice);
-    }
+    }*/
 
     /**
      * Удалить прайсовую цену
@@ -342,8 +341,8 @@ public class CommonDefinitionService {
     @Transactional(readOnly = true)
     public WorksType getWorksTypeById(Long id) throws NoSuchFieldException {
         WorksType result;
-        if (worksTypeDAO.findById(id).isPresent()) {
-            result = worksTypeDAO.findById(id).get();
+        if (worksTypeDAO.exists(id)) {
+            result = worksTypeDAO.findOne(id);
         } else {
             throw new NoSuchFieldException(String.format("WorksType [id = %s] not found", id));
         }
@@ -352,7 +351,7 @@ public class CommonDefinitionService {
 
     @Transactional(readOnly = true)
     public List<WorksType> getWorksTypes() {
-        List<WorksType> list = worksTypeDAO.findAll();
+        List<WorksType> list = (List<WorksType>) worksTypeDAO.findAll();
         return list;
     }
 
@@ -366,7 +365,7 @@ public class CommonDefinitionService {
         Set<Work> newWorkList = worksType.getWorks();
         */
         //todo
-        worksTypeDAO.saveOrUpdate(worksType);
+        worksTypeDAO.save(worksType);
     }
 
     public void deleteWorksType(WorksType worksType) throws HasChildrenEntityException {
@@ -393,14 +392,14 @@ public class CommonDefinitionService {
         if (specificBOM != null) {
             work.setSpecificBOM(specificBOM);
         }
-        workDAO.saveOrUpdate(work);
+        workDAO.save(work);
     }
 
     @Transactional(readOnly = true)
     public Work getWorkById(Long id) throws NoSuchFieldException {
         Work result;
-        if (workDAO.findById(id).isPresent()) {
-            result = workDAO.findById(id).get();
+        if (workDAO.exists(id)) {
+            result = workDAO.findOne(id);
         } else {
             throw new NoSuchFieldException(String.format("Work [id = %s] not found", id));
         }
@@ -409,16 +408,16 @@ public class CommonDefinitionService {
 
     @Transactional(readOnly = true)
     public List<Work> getWorks() {
-        List<Work> works = workDAO.findAll();
+        List<Work> works = (List<Work>) workDAO.findAll();
         return works;
     }
 
     public void updateWork(Work work) {
         //todo
-        workDAO.saveOrUpdate(work);
+        workDAO.save(work);
     }
 
-    public void deleteWorkById(Work work) throws HasChildrenEntityException {
+/*    public void deleteWorkById(Work work) throws HasChildrenEntityException {
         int specIncludedCount = specificationsEntryDAO.findAllBy("work", work).size();
         if (specIncludedCount > 0) {
             throw new HasChildrenEntityException(
@@ -432,5 +431,5 @@ public class CommonDefinitionService {
         }
         workDAO.delete(work);
     }
-
+*/
 }

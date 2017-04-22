@@ -11,7 +11,6 @@ import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 import ua.com.gfalcon.gesem.services.AuthService;
 import ua.com.gfalcon.utils.JsonRestUtils;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,13 +24,13 @@ public class UsersController {
     @Autowired
     private AuthService userService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/list", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity getUsers() {
         List<User> users = userService.getUsersList();
         User admin = userService.getMainAdminUser();
         users.remove(admin);
         return JsonRestUtils.toJsonResponse(users);
-    }
+    }*/
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public @ResponseBody ResponseEntity deleteUserById(@RequestParam(name = "nUserId") Long nUserId) {

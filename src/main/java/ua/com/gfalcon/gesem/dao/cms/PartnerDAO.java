@@ -1,6 +1,6 @@
 package ua.com.gfalcon.gesem.dao.cms;
 
-import ua.com.gfalcon.entitydao.EntityDao;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import ua.com.gfalcon.gesem.domain.cms.Partner;
 
 /**
@@ -8,5 +8,5 @@ import ua.com.gfalcon.gesem.domain.cms.Partner;
  * @version 1.0
  * @since 1.0
  */
-public interface PartnerDAO extends EntityDao<Partner> {
+public interface PartnerDAO extends PagingAndSortingRepository<Partner, Long> {
 }

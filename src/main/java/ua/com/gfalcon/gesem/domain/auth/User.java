@@ -262,4 +262,6 @@ public class User extends AbstractEntity {
         result = 31 * result + (registerDate != null ? registerDate.hashCode() : 0);
         return result;
     }
+
+
 }

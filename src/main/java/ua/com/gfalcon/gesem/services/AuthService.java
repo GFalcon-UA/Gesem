@@ -21,13 +21,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.com.gfalcon.gesem.dao.auth.UserDAO;
 import ua.com.gfalcon.gesem.domain.auth.User;
-import ua.com.gfalcon.gesem.exeptions.AuthenticationException;
 import ua.com.gfalcon.gesem.exeptions.AuthorizationException;
 import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Oleksii Khalikov
@@ -48,7 +45,7 @@ public class AuthService {
     private void chekInitDB() {
         List<User> users;
         try {
-            users = userDAO.findAll();
+            users = (List<User>) userDAO.findAll();
             if (users.isEmpty()) {
                 init();
             }
@@ -62,65 +59,67 @@ public class AuthService {
         admin.setActivated(true);
         admin.setAdministrator(true);
         admin.setAmountPasswordFailed(1000000);
-        userDAO.saveOrUpdate(admin);
+        userDAO.save(admin);
     }
 
-    public boolean authenticate(String login, String pass) throws AuthenticationException {
-        chekInitDB();
-        User user;
-        List<User> candidate = userDAO.findAllBy("login", login);
-        if (candidate.isEmpty() || candidate.size() == 0) {
-            String massege = String.format("Login %s not found", login);
-            throw new AuthenticationException(massege);
-        }
-        for (User us : candidate) {
-            if (us.checkPassword(pass)) {
-                return us.isActivated();
+    /*
+        public boolean authenticate(String login, String pass) throws AuthenticationException {
+            chekInitDB();
+            User user;
+            List<User> candidate = userDAO.findAllBy("login", login);
+            if (candidate.isEmpty() || candidate.size() == 0) {
+                String massege = String.format("Login %s not found", login);
+                throw new AuthenticationException(massege);
             }
+            for (User us : candidate) {
+                if (us.checkPassword(pass)) {
+                    return us.isActivated();
+                }
+            }
+            String message = String.format("User %s incorrect password", login);
+            throw new AuthenticationException(message);
         }
-        String message = String.format("User %s incorrect password", login);
-        throw new AuthenticationException(message);
-    }
-
+    */
     public boolean register(String login, String password) throws AuthorizationException {
         chekInitDB();
         User user = new User(login, password);
         try {
-            userDAO.saveOrUpdate(user);
+            userDAO.save(user);
         } catch (Exception e) {
             throw new AuthorizationException(e.getMessage());
         }
         return true;
     }
 
-    @Transactional(readOnly = true)
-    public boolean isLoginUnique(String login) {
-        chekInitDB();
-        return userDAO.findAllBy("login", login).size() <= 0;
-    }
-
-    @Transactional(readOnly = true)
-    public Map<String, Object> getUserInfoByLogin(String sLogin) throws RecordNotFoundException {
-        Map<String, Object> userInfo = new HashMap<>();
-        User user = null;
-        if (userDAO.findBy("login", sLogin).isPresent()) {
-            user = userDAO.findBy("login", sLogin).get();
-        } else {
-            throw new RecordNotFoundException(String.format("User [sLogin=%s] not found", sLogin));
+    /*
+        @Transactional(readOnly = true)
+        public boolean isLoginUnique(String login) {
+            chekInitDB();
+            return userDAO.findAllBy("login", login).size() <= 0;
         }
-        userInfo.put("nID", user.getId());
-        userInfo.put("sLogin", user.getLogin());
-        userInfo.put("nAmountPasswordFailed", user.getAmountPasswordFailed());
-        userInfo.put("dLastDatePasswordFailed", user.getLastDatePasswordFailed());
-        userInfo.put("dRegisterDate", user.getRegisterDate());
-        userInfo.put("bAdministrator", user.isAdministrator());
-        userInfo.put("bActivated", user.isActivated());
-        return userInfo;
-    }
 
+        @Transactional(readOnly = true)
+        public Map<String, Object> getUserInfoByLogin(String sLogin) throws RecordNotFoundException {
+            Map<String, Object> userInfo = new HashMap<>();
+            User user = null;
+            if (userDAO.findBy("login", sLogin).isPresent()) {
+                user = userDAO.findBy("login", sLogin).get();
+            } else {
+                throw new RecordNotFoundException(String.format("User [sLogin=%s] not found", sLogin));
+            }
+            userInfo.put("nID", user.getId());
+            userInfo.put("sLogin", user.getLogin());
+            userInfo.put("nAmountPasswordFailed", user.getAmountPasswordFailed());
+            userInfo.put("dLastDatePasswordFailed", user.getLastDatePasswordFailed());
+            userInfo.put("dRegisterDate", user.getRegisterDate());
+            userInfo.put("bAdministrator", user.isAdministrator());
+            userInfo.put("bActivated", user.isActivated());
+            return userInfo;
+        }
+    */
     @Transactional(readOnly = true)
     public List<User> getUsersList() {
-        return userDAO.findAll();
+        return (List<User>) userDAO.findAll();
     }
 
     public boolean setActivateStatusByUserId(Long userId, Boolean activateStatus) throws RecordNotFoundException {
@@ -130,7 +129,7 @@ public class AuthService {
         }
         user.setActivated(activateStatus);
         try {
-            userDAO.saveOrUpdate(user);
+            userDAO.save(user);
         } catch (Exception e) {
             return false;
         }
@@ -140,8 +139,8 @@ public class AuthService {
     @Transactional(readOnly = true)
     public User getUserById(Long userId) throws RecordNotFoundException {
         User user = null;
-        if (userDAO.findById(userId).isPresent()) {
-            user = userDAO.findById(userId).get();
+        if (userDAO.exists(userId)) {
+            user = userDAO.findOne(userId);
         } else {
             throw new RecordNotFoundException(String.format("User [id=%s] not found", userId));
         }
@@ -153,11 +152,11 @@ public class AuthService {
     }
 
     public User updateUser(User user) {
-        return userDAO.saveOrUpdate(user);
+        return userDAO.save(user);
     }
-
+/*
     public User getMainAdminUser() {
         return userDAO.findByExpected("login", ADMIN_LOGIN);
-    }
+    }*/
 
 }

@@ -7,14 +7,11 @@ import ua.com.gfalcon.gesem.dao.cms.BuildObjectDAO;
 import ua.com.gfalcon.gesem.dao.cms.PartnerDAO;
 import ua.com.gfalcon.gesem.dao.cms.specification.SpecificationsEntryDAO;
 import ua.com.gfalcon.gesem.dao.cms.specification.StageDAO;
-import ua.com.gfalcon.gesem.dao.cms.specification.StageDAOImpl;
 import ua.com.gfalcon.gesem.dao.cms.specification.StagesWorkDAO;
 import ua.com.gfalcon.gesem.domain.cms.BuildObject;
 import ua.com.gfalcon.gesem.domain.cms.Partner;
-import ua.com.gfalcon.gesem.domain.cms.specification.SpecificationsEntry;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +36,7 @@ public class CustomerService {
     @Transactional(readOnly = true)
     public List<Partner> getCustomersList() {
         List<Partner> partners;
-        partners = partnerDAO.findAll();
+        partners = (List<Partner>) partnerDAO.findAll();
         return partners;
     }
 
@@ -48,7 +45,7 @@ public class CustomerService {
         partner.setCodeUSREOU(codeUSREOU);
         partner.setPhones(phones);
         partner.setContactPersons(contactPersons);
-        partnerDAO.saveOrUpdate(partner);
+        partnerDAO.save(partner);
     }
 
     public void updatePartnerById(Long id, String name, String phones, String contactPersons, String codeUSREOU)
@@ -66,11 +63,11 @@ public class CustomerService {
         if (contactPersons != null) {
             partner.setContactPersons(contactPersons);
         }
-        partnerDAO.saveOrUpdate(partner);
+        partnerDAO.save(partner);
     }
 
     public Partner updatePartner(Partner partner) {
-        return partnerDAO.saveOrUpdate(partner);
+        return partnerDAO.save(partner);
     }
 
     public void deletePartner(Long id) {
@@ -84,8 +81,8 @@ public class CustomerService {
     @Transactional(readOnly = true)
     public Partner getCustomerById(Long id) throws NoSuchFieldException {
         Partner result;
-        if (partnerDAO.findById(id).isPresent()) {
-            result = partnerDAO.findById(id).get();
+        if (partnerDAO.exists(id)) {
+            result = partnerDAO.findOne(id);
         } else {
             throw new NoSuchFieldException(String.format("Partner [id = %s] not found", id));
         }
@@ -111,26 +108,26 @@ public class CustomerService {
     }
 
     public BuildObject updateBuidObject(BuildObject buildObject) {
-        return buildObjectDAO.saveOrUpdate(buildObject);
+        return buildObjectDAO.save(buildObject);
     }
 
     @Transactional(readOnly = true)
     public BuildObject getBuilObjectById(Long id) throws NoSuchFieldException {
         BuildObject buildObject;
-        if (buildObjectDAO.findById(id).isPresent()) {
-            buildObject = buildObjectDAO.findById(id).get();
+        if (buildObjectDAO.exists(id)) {
+            buildObject = buildObjectDAO.findOne(id);
         } else {
             throw new NoSuchFieldException(String.format("BuildObject [id = %s] not found", id));
         }
         return buildObject;
     }
 
-    @Transactional(readOnly = true)
+    /*@Transactional(readOnly = true)
     public List<BuildObject> getBuildObjectsByOwnerId(Long id) throws NoSuchFieldException {
         Partner owner = getCustomerById(id);
         List<BuildObject> buildObjectList = buildObjectDAO.findAllBy("owner", owner);
         return buildObjectList;
-    }
+    }*/
 
     public void deleteBuidObject(Long id) {
         buildObjectDAO.delete(id);

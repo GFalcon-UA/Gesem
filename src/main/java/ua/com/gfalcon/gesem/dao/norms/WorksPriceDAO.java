@@ -1,6 +1,6 @@
 package ua.com.gfalcon.gesem.dao.norms;
 
-import ua.com.gfalcon.entitydao.EntityDao;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import ua.com.gfalcon.gesem.domain.norms.WorksPrice;
 
 /**
@@ -8,5 +8,5 @@ import ua.com.gfalcon.gesem.domain.norms.WorksPrice;
  * @version 1.0
  * @since 1.0
  */
-public interface WorksPriceDAO extends EntityDao<WorksPrice> {
+public interface WorksPriceDAO extends PagingAndSortingRepository<WorksPrice, Long> {
 }

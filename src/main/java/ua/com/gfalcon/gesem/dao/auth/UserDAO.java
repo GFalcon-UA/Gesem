@@ -16,14 +16,9 @@
 
 package ua.com.gfalcon.gesem.dao.auth;
 
-import ua.com.gfalcon.entitydao.EntityDao;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import ua.com.gfalcon.gesem.domain.auth.User;
 
-/**
- * @author Oleksii Khalikov
- * @version 1.0
- * @since 1.0
- * Created by Gesem on 06.01.2017
- */
-public interface UserDAO extends EntityDao<User> {
+
+public interface UserDAO extends PagingAndSortingRepository<User, Long> {
 }
