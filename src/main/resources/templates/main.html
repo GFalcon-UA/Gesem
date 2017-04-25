@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 2016-2017 by Oleksii KHALIKOV.
+  ~ ========================================================
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html lang="en" ng-app="gesem">
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <title>GF Gesem</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" href="/static/img/favicon-16x16.png" type="image/png">
+
+    <link rel='stylesheet' href='/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/webjars/angular/1.6.4/angular-csp.css">
+    <link rel="stylesheet" href="/webjars/angular-bootstrap/2.5.0/ui-bootstrap-csp.css">
+    <link rel="stylesheet" href="/webjars/handsontable/0.31.1/dist/handsontable.full.min.css">
+
+
+    <script src="/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="/webjars/lodash/4.17.4/dist/lodash.min.js"></script>
+    <script src="/webjars/moment/2.18.1/min/moment.min.js"></script>
+    <script src="/webjars/handsontable/0.31.1/dist/handsontable.full.min.js"></script>
+
+    <script src="/webjars/angular/1.6.4/angular.min.js"></script>
+    <script src="/webjars/angular-cookies/1.6.4/angular-cookies.min.js"></script>
+    <script src="/webjars/angular-route/1.6.4/angular-route.min.js"></script>
+    <script src="/webjars/angular-bootstrap/2.5.0/ui-bootstrap.min.js"></script>
+    <script src="/webjars/angular-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="/webjars/angular-smart-table/2.1.8/dist/smart-table.min.js"></script>
+    <script src="/webjars/angular-moment/1.0.1/angular-moment.min.js"></script>
+    <script src="/webjars/ngHandsontable/0.12.0/dist/ngHandsontable.min.js"></script>
+
+    <script src="gesem/app.module.js"></script>
+    <script src="gesem/components/rest-interceptors/requestInterceptors.factory.js"></script>
+    <script src="gesem/components/rest-interceptors/responseInterceptors.factory.js"></script>
+    <script src="gesem/components/rest-interceptors/httpProvider.config.js"></script>
+    <script src="gesem/components/user/user.provider.js"></script>
+    <script src="gesem/components/user/user.service.js"></script>
+    <script src="gesem/app/users/users.service.js"></script>
+    <script src="gesem/components/modal/modal.service.js"></script>
+    <script src="gesem/components/menu/gf-menu.directive.js"></script>
+
+    <script src="gesem/components/security/security.service.js"></script> <!-- $userProvider -->
+
+    <script src="gesem/app.controller.js"></script>
+    <script src="gesem/app/users/users.controller.js"></script>
+    <script src="gesem/app/login/login.controller.js"></script>
+    <script src="gesem/app.route.js"></script>
+
+</head>
+<body ng-controller="MainCtrl">
+<gf-menu ng-if="vm.isShowMenu"></gf-menu>
+<div ng-view></div>
+</body>
+</html>

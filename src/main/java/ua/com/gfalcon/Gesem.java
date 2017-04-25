@@ -3,6 +3,7 @@ package ua.com.gfalcon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -18,8 +19,8 @@ public class Gesem {
     }
 
     @RequestMapping("/")
-    public String getIndexPage() {
-        return "index";
+    public String getIndexPage(ModelMap modal) {
+        return "index.html";
     }
 
 }
