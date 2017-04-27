@@ -17,13 +17,13 @@
 package ua.com.gfalcon.gesem.domain.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.codec.language.Caverphone2;
 import org.joda.time.DateTime;
+import org.springframework.security.core.userdetails.UserDetails;
 import ua.com.gfalcon.entitydao.AbstractEntity;
-import ua.com.gfalcon.gesem.domain.Config;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Пользователи
@@ -35,37 +35,30 @@ import java.util.Date;
  */
 @Entity(name = "User")
 @Table(name = "USERS")
-public class User extends AbstractEntity {
+public class User extends AbstractEntity implements UserDetails {
 
     @JsonProperty(value = "sLogin")
-    @Column(name = "LOGIN", nullable = false, unique = true)
-    private String login;
+    @Column(nullable = false, unique = true)
+    private String username;
 
     @JsonProperty(value = "sPassword")
-    @Column(name = "PASSWORD")
     private String password;
 
-    @JsonProperty(value = "nAmountPasswordFailed")
-    @Column(name = "AMOUNT_PASS_FAIL")
-    private Integer amountPasswordFailed;
+    @JsonProperty(value = "aRoles")
+    @Enumerated(EnumType.STRING)
+    private Set<Role> authorities;
 
-    @JsonProperty(value = "dLastDatePasswordFailed")
-    @Temporal(TemporalType.DATE)
-    @Column(name = "LAST_DATE_FAILED_PASSWORD")
-    private Date lastDatePasswordFailed;
+    @JsonProperty(value = "bEnabled")
+    private boolean enabled;
 
-    @JsonProperty(value = "bActivated")
-    @Column(name = "ACTIATED")
-    private boolean activated;
+    @JsonProperty(value = "bAccountNonExpired")
+    private boolean accountNonExpired;
 
-    @JsonProperty(value = "bAdministrator")
-    @Column(name = "ADMINISTRATOR")
-    private boolean administrator;
+    @JsonProperty(value = "bAccountNonLocked")
+    private boolean accountNonLocked;
 
-    @JsonProperty(value = "dRegisterDate")
-    @Temporal(TemporalType.DATE)
-    @Column(name = "REGISTERED")
-    private Date registerDate;
+    @JsonProperty(value = "bCredentialsNonExpired")
+    private boolean credentialsNonExpired;
 
     protected User() {
         this(("Log" + DateTime.now().toString()), "");
@@ -78,190 +71,87 @@ public class User extends AbstractEntity {
      * @param password пароль
      */
     public User(String login, String password) {
-        this.login = login;
+        this(login, password, new HashSet<>(), false);
+    }
+
+    public User(String username, String password, Set<Role> authorities, boolean enabled) {
+        setUsername(username);
         setPassword(password);
-        registerDate = DateTime.now().toDate();
-        administrator = false;
-        activated = false;
-        lastDatePasswordFailed = registerDate;
-        amountPasswordFailed = Config.MAX_PASSWORD_FAILED;
+        setAuthorities(authorities);
+        setEnabled(enabled);
+        setAccountNonLocked(true);
+        setAccountNonExpired(true);
+        setCredentialsNonExpired(true);
     }
 
-    /**
-     * Получить логин     *
-     *
-     * @return логин
-     */
-    public String getLogin() {
-        return login;
+    @Override
+    public Set<Role> getAuthorities() {
+        return authorities;
     }
 
-    /**
-     * Задать логин
-     *
-     * @param login логин
-     */
-    public void setLogin(String login) {
-        this.login = login;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    /**
-     * Проверить пароль
-     *
-     * @param string строка для проверки пароля
-     * @return boolean
-     */
-    public boolean checkPassword(String string) {
-        Caverphone2 caver = new Caverphone2();
-        return password.equals(caver.encode(string));
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    /**
-     * Задать пароль
-     *
-     * @param password пароль
-     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAuthorities(Set<Role> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void addAuthority(Role authority) {
+        authorities.add(authority);
+    }
+
+    public void removeAuthority(Role authority) {
+        authorities.remove(authority);
+    }
+
     public void setPassword(String password) {
-        Caverphone2 caver = new Caverphone2();
-        this.password = caver.encode(password);
+        this.password = password;
     }
 
-    /**
-     * Получить количество оставшихся доступных ошибок при вводе пароля
-     *
-     * @return количество оставшихся доступных ошибок при вводе пароля
-     */
-    public Integer getAmountPasswordFailed() {
-        return amountPasswordFailed;
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
     }
 
-    /**
-     * Задать количество оставшихся доступных ошибок при вводе пароля
-     *
-     * @param amountPasswordFailed количество оставшихся доступных ошибок при вводе пароля
-     */
-    public void setAmountPasswordFailed(Integer amountPasswordFailed) {
-        this.amountPasswordFailed = amountPasswordFailed;
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
     }
 
-    /**
-     * Получить дату последней ошибки при вводе пароля
-     *
-     * @return Дата последней ошибки при вводе пароля
-     */
-    public DateTime getLastDatePasswordFailed() {
-        return new DateTime(lastDatePasswordFailed);
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
     }
 
-    /**
-     * Задать дату последней ошибки при вводе пароля
-     *
-     * @param lastDatePasswordFailed Дата последней ошибки при вводе пароля
-     */
-    public void setLastDatePasswordFailed(DateTime lastDatePasswordFailed) {
-        this.lastDatePasswordFailed = lastDatePasswordFailed.toDate();
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
-
-    /**
-     * Проверить активнрован ли аккаунт пользователя или нет
-     *
-     * @return activated
-     */
-    public boolean isActivated() {
-        return activated;
-    }
-
-    /**
-     * Задать активацию аккаунта пользователя
-     *
-     * @param activated boolean
-     */
-    public void setActivated(boolean activated) {
-        this.activated = activated;
-    }
-
-    /**
-     * Проверить, является ли пользователь администратором
-     *
-     * @return administrator
-     */
-    public boolean isAdministrator() {
-        return administrator;
-    }
-
-    /**
-     * Установить/снять права администратора
-     *
-     * @param administrator boolean
-     */
-    public void setAdministrator(boolean administrator) {
-        this.administrator = administrator;
-    }
-
-    /**
-     * Получить дату регистрации пользователя
-     *
-     * @return дата регистрации пользователя
-     */
-    public DateTime getRegisterDate() {
-        return new DateTime(registerDate);
-    }
-
-    /**
-     * Задать дату регистрации пользователя
-     *
-     * @param registerDate дата регистрации пользователя
-     */
-    public void setRegisterDate(DateTime registerDate) {
-        this.registerDate = registerDate.toDate();
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof User))
-            return false;
-
-        User user = (User) o;
-
-        if (activated != user.activated)
-            return false;
-        if (administrator != user.administrator)
-            return false;
-        if (!login.equals(user.login))
-            return false;
-        if (!password.equals(user.password))
-            return false;
-        if (amountPasswordFailed != null ?
-                !amountPasswordFailed.equals(user.amountPasswordFailed) :
-                user.amountPasswordFailed != null)
-            return false;
-        if (lastDatePasswordFailed != null ?
-                !lastDatePasswordFailed.equals(user.lastDatePasswordFailed) :
-                user.lastDatePasswordFailed != null)
-            return false;
-        return registerDate != null ? registerDate.equals(user.registerDate) : user.registerDate == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = login.hashCode();
-        result = 31 * result + password.hashCode();
-        result = 31 * result + (amountPasswordFailed != null ? amountPasswordFailed.hashCode() : 0);
-        result = 31 * result + (lastDatePasswordFailed != null ? lastDatePasswordFailed.hashCode() : 0);
-        result = 31 * result + (activated ? 1 : 0);
-        result = 31 * result + (administrator ? 1 : 0);
-        result = 31 * result + (registerDate != null ? registerDate.hashCode() : 0);
-        return result;
-    }
-
-
 }

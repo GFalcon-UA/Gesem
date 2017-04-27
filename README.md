@@ -16,7 +16,7 @@ Customization system environment variables:
 </tr>
 <tr>
 <td>`DATABASE_URL` (requred)</td>
-<td>`postgres://[user_name]:[user_pass]@[rdbs_ip]:[rdbs_port]/[db_name]`</td>
+<td>The string for connecting to the PostgreSQL data base.<br/> It must have format like:<br/> `postgres://[user_name]:[user_pass]@[rdbs_ip]:[rdbs_port]/[db_name]`</td>
 <td>postgres://postgres:postgres@localhost:5432/gesem</td>
 </tr>
 </table>

@@ -21,4 +21,5 @@ import ua.com.gfalcon.gesem.domain.auth.User;
 
 
 public interface UserDAO extends PagingAndSortingRepository<User, Long> {
+    User findByUsername(String username);
 }

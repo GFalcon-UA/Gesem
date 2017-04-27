@@ -29,7 +29,7 @@ import java.util.Properties;
  * @since 1.0.0
  */
 @Configuration
-@EnableJpaRepositories(basePackages = "ua.com.gfalcon.gesem.dao")
+@EnableJpaRepositories(basePackages = "ua.com.gfalcon")
 @EnableTransactionManagement
 public class JpaConfiguration {
 
@@ -43,23 +43,16 @@ public class JpaConfiguration {
     public DataSourceProperties dataSourceProperties() {
         DataSourceProperties dataSourceProperties = new DataSourceProperties();
         String sDATABASE_URL = System.getenv("DATABASE_URL");
-        System.out.println("sDATABASE_URL = " + sDATABASE_URL);
         String driverClassName = "org.postgresql.Driver";
         dataSourceProperties.setDriverClassName(driverClassName);
-        System.out.println(driverClassName);
         try {
             URI dbUrl = new URI(sDATABASE_URL);
-            System.out.println("dbUrl created ");
             String url = "jdbc:postgresql://" + dbUrl.getHost() + ":" + dbUrl.getPort() + dbUrl.getPath();
             dataSourceProperties.setUrl(url);
-            System.out.println("url = " + url);
             String username = dbUrl.getUserInfo().split(":")[0];
             dataSourceProperties.setUsername(username);
-            System.out.println("username = " + username);
             String pass = dbUrl.getUserInfo().split(":")[1];
             dataSourceProperties.setPassword(pass);
-            System.out.println("pass = " + pass);
-            System.out.println("dataSourceProperties created ");
             return dataSourceProperties;
         } catch (URISyntaxException e) {
             System.out.println("e = " + e.getMessage());
@@ -75,12 +68,10 @@ public class JpaConfiguration {
     public DataSource dataSource() {
         DataSourceProperties properties = dataSourceProperties();
         BasicDataSource dataSource = new BasicDataSource();
-        System.out.println("dataSource inits ");
         dataSource.setDriverClassName(properties.getDriverClassName());
         dataSource.setUrl(properties.getUrl());
         dataSource.setUsername(properties.getUsername());
         dataSource.setPassword(properties.getPassword());
-        System.out.println("dataSource configured ");
         return dataSource;
     }
 
@@ -92,7 +83,7 @@ public class JpaConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws NamingException {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
-        factoryBean.setPackagesToScan("ua.com.gfalcon.gesem");
+        factoryBean.setPackagesToScan("ua.com.gfalcon");
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
         //factoryBean.setJpaProperties(jpaProperties());
         return factoryBean;
