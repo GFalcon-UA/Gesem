@@ -56,9 +56,10 @@ public class AuthService {
 
     private void init() {
         User admin = new User(ADMIN_LOGIN, "secret");
+        /*
         admin.setActivated(true);
         admin.setAdministrator(true);
-        admin.setAmountPasswordFailed(1000000);
+        admin.setAmountPasswordFailed(1000000);*/
         userDAO.save(admin);
     }
 
@@ -127,7 +128,7 @@ public class AuthService {
         if (user == null) {
             return false;
         }
-        user.setActivated(activateStatus);
+        user.setEnabled(activateStatus);
         try {
             userDAO.save(user);
         } catch (Exception e) {
