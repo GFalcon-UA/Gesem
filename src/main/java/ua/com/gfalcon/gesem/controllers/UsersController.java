@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ua.com.gfalcon.gesem.domain.auth.Role;
 import ua.com.gfalcon.gesem.domain.auth.User;
 import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 import ua.com.gfalcon.gesem.services.AuthService;
@@ -60,11 +59,11 @@ public class UsersController {
             }
             if (userParams.containsKey("bAdministrator")) {
                 boolean value = (boolean) userParams.get("bAdministrator");
-                if (value) {
+                /*if (value) {
                     oldUser.addAuthority(Role.ADMIN);
                 } else if (oldUser.getAuthorities().contains(Role.ADMIN)) {
                     oldUser.removeAuthority(Role.ADMIN);
-                }
+                }*/
 
             }
             if (userParams.containsKey("sPassword")) {

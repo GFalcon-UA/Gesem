@@ -21,7 +21,10 @@ import org.joda.time.DateTime;
 import org.springframework.security.core.userdetails.UserDetails;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,8 +48,8 @@ public class User extends AbstractEntity implements UserDetails {
     private String password;
 
     @JsonProperty(value = "aRoles")
-    @Enumerated(EnumType.STRING)
-    private Set<Role> authorities;
+    @OneToMany
+    private Set<Role> roles;
 
     @JsonProperty(value = "bEnabled")
     private boolean enabled;
@@ -74,10 +77,10 @@ public class User extends AbstractEntity implements UserDetails {
         this(login, password, new HashSet<>(), false);
     }
 
-    public User(String username, String password, Set<Role> authorities, boolean enabled) {
+    public User(String username, String password, Set<Role> roles, boolean enabled) {
         setUsername(username);
         setPassword(password);
-        setAuthorities(authorities);
+        setRoles(roles);
         setEnabled(enabled);
         setAccountNonLocked(true);
         setAccountNonExpired(true);
@@ -85,8 +88,14 @@ public class User extends AbstractEntity implements UserDetails {
     }
 
     @Override
-    public Set<Role> getAuthorities() {
-        return authorities;
+    public Set<Authority> getAuthorities() {
+        Set<Authority> authoritySet = new HashSet<>();
+        if (roles.size() > 0) {
+            for (Role role : roles) {
+                authoritySet.add(role.getAuthority());
+            }
+        }
+        return authoritySet;
     }
 
     @Override
@@ -123,16 +132,16 @@ public class User extends AbstractEntity implements UserDetails {
         this.username = username;
     }
 
-    public void setAuthorities(Set<Role> authorities) {
-        this.authorities = authorities;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public void addAuthority(Role authority) {
-        authorities.add(authority);
+    public void addRole(Role role) {
+        roles.add(role);
     }
 
-    public void removeAuthority(Role authority) {
-        authorities.remove(authority);
+    public void removeRole(Role role) {
+        roles.remove(role);
     }
 
     public void setPassword(String password) {

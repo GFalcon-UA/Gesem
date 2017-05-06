@@ -55,7 +55,12 @@
         <hibernate.version>5.2.10.Final</hibernate.version>
         <hibernate-validator.version>5.4.1.Final</hibernate-validator.version>
         <!-- Additional JARs -->
+        <jadira-usertype.version>6.0.1.GA</jadira-usertype.version>
         <apache-poi.version>3.13</apache-poi.version>
+        <jxls.version>2.2.9</jxls.version>
+        <jxls-reader.version>1.0.6</jxls-reader.version>
+        <java-object-merger.version>0.8.5.1</java-object-merger.version>
+        <google.guava.version>18.0</google.guava.version>
         <!-- WebJARs -->
         <jquery.version>3.2.1</jquery.version>
         <lodash.version>4.17.4</lodash.version>
@@ -167,7 +172,7 @@
         <dependency>
             <groupId>org.jadira.usertype</groupId>
             <artifactId>usertype.core</artifactId>
-            <version>6.0.1.GA</version>
+            <version>${jadira-usertype.version}</version>
         </dependency>
 
         <!-- logentries.com -->
@@ -181,12 +186,12 @@
         <dependency>
             <groupId>org.jxls</groupId>
             <artifactId>jxls</artifactId>
-            <version>2.2.9</version>
+            <version>${jxls.version}</version>
         </dependency>
         <dependency>
             <groupId>net.sf.jxls</groupId>
             <artifactId>jxls-reader</artifactId>
-            <version>1.0.6</version>
+            <version>${jxls-reader.version}</version>
         </dependency>
 
         <!-- Apache POI -->
@@ -204,13 +209,13 @@
         <dependency>
             <groupId>net.sf.brunneng.jom</groupId>
             <artifactId>java-object-merger</artifactId>
-            <version>0.8.5.1</version>
+            <version>${java-object-merger.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>18.0</version>
+            <version>${google.guava.version}</version>
         </dependency>
 
         <!-- ============================================================== -->
