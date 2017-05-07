@@ -17,9 +17,10 @@
 package ua.com.gfalcon.gesem.dao.auth;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ua.com.gfalcon.gesem.domain.auth.User;
 
 
 public interface UserDAO extends PagingAndSortingRepository<User, Long> {
-    User findByUsername(String username);
+    User findByUsername(String username) throws UsernameNotFoundException;
 }

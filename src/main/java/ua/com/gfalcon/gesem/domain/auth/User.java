@@ -77,6 +77,18 @@ public class User extends AbstractEntity implements UserDetails {
         this(login, password, new HashSet<>(), false);
     }
 
+    public User(String username, String password, Role role, boolean enabled) {
+        setUsername(username);
+        setPassword(password);
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        setRoles(roles);
+        setEnabled(enabled);
+        setAccountNonLocked(true);
+        setAccountNonExpired(true);
+        setCredentialsNonExpired(true);
+    }
+
     public User(String username, String password, Set<Role> roles, boolean enabled) {
         setUsername(username);
         setPassword(password);

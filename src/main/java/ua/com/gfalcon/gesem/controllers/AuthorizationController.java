@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ua.com.gfalcon.gesem.services.AuthService;
+import ua.com.gfalcon.gesem.services.UserService;
 import ua.com.gfalcon.utils.JsonRestUtils;
 
 import javax.servlet.http.HttpSession;
@@ -38,7 +38,7 @@ import javax.servlet.http.HttpSession;
 @SessionAttributes("loginId")
 public class AuthorizationController {
     @Autowired
-    private AuthService authorizationService;
+    private UserService authorizationService;
 
     /*@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public @ResponseBody

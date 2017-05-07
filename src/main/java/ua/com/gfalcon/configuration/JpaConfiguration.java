@@ -85,7 +85,7 @@ public class JpaConfiguration {
         factoryBean.setDataSource(dataSource());
         factoryBean.setPackagesToScan("ua.com.gfalcon");
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter());
-        //factoryBean.setJpaProperties(jpaProperties());
+        factoryBean.setJpaProperties(jpaProperties());
         return factoryBean;
     }
 
@@ -104,8 +104,8 @@ public class JpaConfiguration {
     private Properties jpaProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        //properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("datasource.hibernate.hbm2ddl.method"));
-        //properties.put("hibernate.show_sql", environment.getRequiredProperty("datasource.hibernate.show_sql"));
+        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.show_sql", true);
         properties.put("hibernate.enable_lazy_load_no_trans", true);
         return properties;
     }

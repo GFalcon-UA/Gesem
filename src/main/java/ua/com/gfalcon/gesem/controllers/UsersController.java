@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ua.com.gfalcon.gesem.domain.auth.User;
 import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
-import ua.com.gfalcon.gesem.services.AuthService;
+import ua.com.gfalcon.gesem.services.UserService;
 import ua.com.gfalcon.utils.JsonRestUtils;
 
 import java.util.Map;
@@ -22,7 +22,7 @@ import java.util.Map;
 @RequestMapping(value = "api/users")
 public class UsersController {
     @Autowired
-    private AuthService userService;
+    private UserService userService;
 
     /*@RequestMapping(value = "/list", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity getUsers() {
