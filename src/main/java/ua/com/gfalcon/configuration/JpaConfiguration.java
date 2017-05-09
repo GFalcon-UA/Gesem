@@ -15,6 +15,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ua.com.gfalcon.configuration.enums.hibernate.Hbm2ddl;
 
 import javax.naming.NamingException;
 import javax.persistence.EntityManagerFactory;
@@ -43,6 +44,9 @@ public class JpaConfiguration {
     public DataSourceProperties dataSourceProperties() {
         DataSourceProperties dataSourceProperties = new DataSourceProperties();
         String sDATABASE_URL = System.getenv("DATABASE_URL");
+        if (sDATABASE_URL == null || sDATABASE_URL.isEmpty() || sDATABASE_URL.equals("")) {
+            sDATABASE_URL = "postgres://postgres:postgres@localhost:5432/gesem";
+        }
         String driverClassName = "org.postgresql.Driver";
         dataSourceProperties.setDriverClassName(driverClassName);
         try {
@@ -104,8 +108,10 @@ public class JpaConfiguration {
     private Properties jpaProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", Hbm2ddl.UPDADE.getValue());
         properties.put("hibernate.show_sql", true);
+        properties.put("hibernate.format_sql", true);
+        properties.put("hibernate.use_sql_comments", true);
         properties.put("hibernate.enable_lazy_load_no_trans", true);
         return properties;
     }

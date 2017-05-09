@@ -1,0 +1,700 @@
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery-ui -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>jquery-ui</artifactId>
+<version>1.12.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/jquery.cookie -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>jquery.cookie</artifactId>
+<version>1.4.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+
+
+
+
+
+
+
+
+
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-local-storage -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-local-storage</artifactId>
+<version>0.5.2</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-datatables -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-datatables</artifactId>
+<version>0.5.5</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>datatables.net</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-table -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-table</artifactId>
+<version>1.0.0</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-auth0 -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-auth0</artifactId>
+<version>2.0.0-beta.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>auth0.js</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-material -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-material</artifactId>
+<version>1.1.3</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-animate</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-aria</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-messages</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-translate -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-translate</artifactId>
+<version>2.15.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-loading-bar -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-loading-bar</artifactId>
+<version>0.9.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/ng-file-upload -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>ng-file-upload</artifactId>
+<version>12.2.13</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/restangular -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>restangular</artifactId>
+<version>1.6.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>lodash</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-websocket -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-websocket</artifactId>
+<version>2.0.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-dateparser -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-dateparser</artifactId>
+<version>1.1.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-i18n</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-formly -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-formly</artifactId>
+<version>8.4.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>api-check</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-md5 -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-md5</artifactId>
+<version>0.1.8</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-strap -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-strap</artifactId>
+<version>2.3.10</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-motion -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-motion</artifactId>
+<version>0.4.4</version>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-spinner -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-spinner</artifactId>
+<version>1.0.1</version>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-simple-logger -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-simple-logger</artifactId>
+<version>0.1.7</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-google-chart -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-google-chart</artifactId>
+<version>0.1.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-scroll -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-scroll</artifactId>
+<version>1.0.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-state-machine -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-state-machine</artifactId>
+<version>1.2.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-circular-navigation -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-circular-navigation</artifactId>
+<version>0.2.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-material-icons -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-material-icons</artifactId>
+<version>0.7.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-bootstrap-colorpicker -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-bootstrap-colorpicker</artifactId>
+<version>3.0.11</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-utf8-base64 -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-utf8-base64</artifactId>
+<version>0.0.5</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-schema-form -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-schema-form</artifactId>
+<version>0.8.13</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-sanitize</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>tv4</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>objectpath</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-base64-upload -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-base64-upload</artifactId>
+<version>0.1.19</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-treasure-overlay-spinner -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-treasure-overlay-spinner</artifactId>
+<version>1.1.0</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-schema-form-bootstrap -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-schema-form-bootstrap</artifactId>
+<version>0.2.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-schema-form</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-bootstrap-nav-tree-gildo -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-bootstrap-nav-tree-gildo</artifactId>
+<version>0.1.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>bootstrap</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-drag-and-drop-lists -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-drag-and-drop-lists</artifactId>
+<version>2.1.0</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/ng-grid -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>ng-grid</artifactId>
+<version>3.1.1</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/github-com-fmaturel-angular-weekly-scheduler -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>github-com-fmaturel-angular-weekly-scheduler</artifactId>
+<version>0.0.5</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-i18n</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular-animate</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>moment</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/moment-picker -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>moment-picker</artifactId>
+<version>0.4.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-mask -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-mask</artifactId>
+<version>3.1.1</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-bootstrap-calendar -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-bootstrap-calendar</artifactId>
+<version>0.27.5</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>bootstrap</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>moment</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-auto-focus -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-auto-focus</artifactId>
+<version>1.0.4</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/angular-tree-control -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>angular-tree-control</artifactId>
+<version>0.2.28</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>angular</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+
+
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/bootstrap-daterangepicker -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>bootstrap-daterangepicker</artifactId>
+<version>2.1.24</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>moment</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/bootstrap-select -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>bootstrap-select</artifactId>
+<version>1.12.2</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/bootstrap-datepicker -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>bootstrap-datepicker</artifactId>
+<version>1.6.4</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/bootstrap-treeview -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>bootstrap-treeview</artifactId>
+<version>1.2.0</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>bootstrap</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/lodash -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>lodash</artifactId>
+<version>4.17.4</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/datatables -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>datatables</artifactId>
+<version>1.10.13</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/requirejs -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>requirejs</artifactId>
+<version>2.3.3</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/moment -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>moment</artifactId>
+<version>2.18.1</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/tv4 -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>tv4</artifactId>
+<version>1.2.7</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/objectpath -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>objectpath</artifactId>
+<version>1.2.1</version>
+</dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/api-check -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>api-check</artifactId>
+<version>7.5.5</version>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/ace-builds -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>ace-builds</artifactId>
+<version>1.2.6</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/json3 -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>json3</artifactId>
+<version>3.3.2</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/auth0.js -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>auth0.js</artifactId>
+<version>8.4.0</version>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/datatables.net -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>datatables.net</artifactId>
+<version>1.10.13</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>jquery</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/handsontable -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>handsontable</artifactId>
+<version>0.31.1</version>
+<exclusions>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>moment</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>numbro</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>pikaday</artifactId>
+    </exclusion>
+    <exclusion>
+        <groupId>org.webjars.bower</groupId>
+        <artifactId>zeroclipboard</artifactId>
+    </exclusion>
+</exclusions>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/moment -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>moment</artifactId>
+<version>2.18.1</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/numbro -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>numbro</artifactId>
+<version>1.9.3</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/pikaday -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>pikaday</artifactId>
+<version>1.4.0</version>
+</dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars.bower/zeroclipboard -->
+<dependency>
+<groupId>org.webjars.bower</groupId>
+<artifactId>zeroclipboard</artifactId>
+<version>2.3.0</version>
+</dependency>

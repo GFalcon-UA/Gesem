@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ua.com.gfalcon.gesem.domain.auth.User;
 import ua.com.gfalcon.gesem.exeptions.RecordNotFoundException;
 import ua.com.gfalcon.gesem.services.UserService;
+import ua.com.gfalcon.gesem.validators.UserValidator;
 import ua.com.gfalcon.utils.JsonRestUtils;
 
 import java.util.Map;
@@ -23,6 +25,9 @@ import java.util.Map;
 public class UsersController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserValidator userValidator;
 
     /*@RequestMapping(value = "/list", method = RequestMethod.GET)
     public @ResponseBody ResponseEntity getUsers() {
@@ -44,7 +49,8 @@ public class UsersController {
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public @ResponseBody ResponseEntity updateUser(@RequestParam(name = "nUserId") Long userId,
-                                                   @RequestBody String body) {
+                                                   @RequestBody String body,
+                                                   Errors validatorErrors) {
         if (userId <= 0) {
             return JsonRestUtils.toJsonResponse(HttpStatus.BAD_REQUEST, "nUserId is wrong");
         }
@@ -73,6 +79,12 @@ public class UsersController {
         } catch (RecordNotFoundException e) {
             return JsonRestUtils.toJsonResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
+        userValidator.validate(oldUser, validatorErrors);
+
+        if (validatorErrors.hasErrors()) {
+            return JsonRestUtils.toJsonResponse(validatorErrors.getAllErrors().toString());
+        }
+
         User newUser = userService.updateUser(oldUser);
         return JsonRestUtils.toJsonResponse(newUser);
     }
