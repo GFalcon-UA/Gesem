@@ -16,8 +16,8 @@ import ua.com.gfalcon.gesem.services.AuthService;
 @Component
 public class UserValidator implements Validator {
 
-    @Autowired
-    private AuthService userService;
+    //@Autowired
+    //private AuthService userService;
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -33,9 +33,9 @@ public class UserValidator implements Validator {
             errors.rejectValue("username", "User.size.username");
         }
 
-        if (userService.getUserByUsername(user.getUsername()) != null) {
-            errors.rejectValue("username", "User.duplicate.username");
-        }
+        //if (userService.getUserByUsername(user.getUsername()) != null) {
+        //    errors.rejectValue("username", "User.duplicate.username");
+        //}
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "Required");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {

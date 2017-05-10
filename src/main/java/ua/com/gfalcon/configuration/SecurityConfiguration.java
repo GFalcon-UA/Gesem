@@ -25,14 +25,14 @@ import ua.com.gfalcon.gesem.services.AuthService;
 @EnableGlobalMethodSecurity
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private AuthService AuthService;
+    //@Autowired
+    //private AuthService AuthService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-                .httpBasic().and()
+                .httpBasic().realmName("gesem").and()
                 .authorizeRequests()
                 .antMatchers("/index.html", "/", "/login", "/message", "/home").permitAll()
                 .anyRequest().authenticated()
@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
         // @formatter:on
     }
-
+/*
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -53,5 +53,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .userDetailsService(AuthService)
                 .passwordEncoder(passwordEncoder());
     }
-
+*/
 }

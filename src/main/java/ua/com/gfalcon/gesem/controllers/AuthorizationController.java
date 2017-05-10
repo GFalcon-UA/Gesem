@@ -33,7 +33,7 @@ import javax.servlet.http.HttpSession;
  * @since 1.0
  * Created by Gesem on 06.01.2017
  */
-@Controller
+//@Controller
 @RequestMapping(value = "api/auth")
 @SessionAttributes("loginId")
 public class AuthorizationController {

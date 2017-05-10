@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +27,7 @@ import java.util.List;
  * @version 1.0.0
  * @since 1.0.0
  */
-@Service
+//@Service
 public class AuthService implements UserDetailsService {
 
     @Autowired
@@ -38,7 +39,7 @@ public class AuthService implements UserDetailsService {
     @Autowired
     private RoleDAO roleDAO;
 
-    @Autowired
+    //@Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -50,6 +51,7 @@ public class AuthService implements UserDetailsService {
     @PostConstruct
     private void init() {
         List<User> users;
+        passwordEncoder = new BCryptPasswordEncoder();
         adminUsername = environment.getProperty("database.admin.username");
         adminPassword = environment.getProperty("database.admin.password");
         try {

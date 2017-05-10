@@ -28,10 +28,11 @@ angular.module('auth', []).factory(
                     + btoa(credentials.username + ":"
                         + credentials.password)
                 } : {};
-
+debugger;
                 $http.get('user', {
                     headers: headers
                 }).then(function (response) {
+                    debugger;
                     if (response.data.name) {
                         auth.authenticated = true;
                     } else {
@@ -40,6 +41,7 @@ angular.module('auth', []).factory(
                     callback && callback(auth.authenticated);
                     $location.path(auth.path == auth.loginPath ? auth.homePath : auth.path);
                 }, function () {
+                    debugger;
                     auth.authenticated = false;
                     callback && callback(false);
                 });

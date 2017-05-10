@@ -16,6 +16,7 @@ angular.module('navigation', ['ngRoute', 'auth']).controller(
         };
 
         self.login = function () {
+            debugger;
             auth.authenticate(self.credentials, function (authenticated) {
                 if (authenticated) {
                     console.log("Login succeeded");
