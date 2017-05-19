@@ -37,7 +37,7 @@ import java.util.Set;
 public class Material extends AbstractEntity{
 
     @JsonProperty(value = "sName")
-    @Column(unique = true)
+    @Column(name = "NAME", unique = true)
     private String name;
 
     @JsonProperty(value = "oMeasureUnit")

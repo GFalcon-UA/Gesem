@@ -35,7 +35,7 @@ import java.util.Set;
 public class Partner extends AbstractEntity {
 
     @JsonProperty(value = "sName")
-    @Column(unique = true)
+    @Column(name = "NAME", unique = true)
     private String name;
 
     @JsonProperty(value = "aObjects")
@@ -43,12 +43,15 @@ public class Partner extends AbstractEntity {
     private Set<BuildObject> objects = new HashSet<>();
 
     @JsonProperty(value = "sPhones")
+    @Column(name = "PHONES")
     private String phones;
 
     @JsonProperty(value = "sContactPersons")
+    @Column(name = "CONTACT")
     private String contactPersons;
 
     @JsonProperty(value = "sCodeUSREOU")
+    @Column(name = "CODE_USREOU")
     private String codeUSREOU;
 
     protected Partner() {

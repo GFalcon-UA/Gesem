@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.joda.time.DateTime;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,9 +23,11 @@ public class Price extends AbstractEntity {
 
     @JsonProperty(value = "dStartDate")
     @Temporal(TemporalType.DATE)
+    @Column(name = "START_DATE")
     private Date startDate;
 
     @JsonProperty(value = "nCost")
+    @Column(name = "COST")
     private BigDecimal cost;
 
     protected Price() {

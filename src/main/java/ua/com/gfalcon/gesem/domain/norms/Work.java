@@ -32,12 +32,12 @@ import java.util.Map;
  * @since 1.0
  */
 @Entity(name = "Work")
+@Table(name = "WORKS")
 @Inheritance(strategy = InheritanceType.JOINED)
-//@MappedSuperclass
 public class Work extends AbstractEntity {
 
     @JsonProperty(value = "sName")
-    @Column(unique = true)
+    @Column(name = "NAME", unique = true)
     private String name;
 
     @JsonProperty(value = "oWorkType")

@@ -15,6 +15,7 @@ import java.util.Set;
  * @since 1.0
  */
 @Entity(name = "ParentStage")
+@Table(name = "PARENT_STAGES")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class ParentStage extends AbstractEntity {
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 import ua.com.gfalcon.gesem.domain.norms.Material;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,6 +28,7 @@ public class SpecificationsEntry extends AbstractEntity {
     private StagesWork work;
 
     @JsonProperty(value = "nCoefficient")
+    @Column(name = "COEFFICIENT")
     private BigDecimal coef = new BigDecimal(1); // коэффициент для расчета материалов
 
     public SpecificationsEntry() {

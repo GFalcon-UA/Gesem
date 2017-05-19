@@ -19,10 +19,7 @@ package ua.com.gfalcon.entitydao;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.brunneng.jom.annotations.Identifier;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -35,6 +32,7 @@ import java.io.Serializable;
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
     @Id
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty(value = "nID")
     private Long id;

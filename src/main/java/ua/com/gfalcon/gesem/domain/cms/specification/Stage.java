@@ -37,7 +37,7 @@ import java.util.Map;
 public class Stage extends ParentStage {
 
     @JsonProperty(value = "sName")
-    @Column(unique = true)
+    @Column(name = "NAME", unique = true)
     private String name;
 
     @JsonProperty(value = "oParentStage")
@@ -55,6 +55,7 @@ public class Stage extends ParentStage {
      * номер по порядку для сортировки
      */
     @JsonProperty(value = "nSequence")
+    @Column(name = "SEQUENCE")
     private Integer sequence;
 
     protected Stage() {

@@ -4,21 +4,19 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import ua.com.gfalcon.entitydao.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 /**
  * @author Oleksii Khalikov
  * @version 1.0.0
  * @since 1.0.0
  */
-@Entity
+@Entity(name = "Role")
+@Table(name = "ROLES")
 public class Role extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
-    @Column(unique = true, nullable = false)
+    @Column(name = "AUTHORITY", unique = true, nullable = false)
     private Authority authority;
 
     protected Role() {

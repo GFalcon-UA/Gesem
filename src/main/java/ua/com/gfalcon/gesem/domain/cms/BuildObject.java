@@ -21,6 +21,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import ua.com.gfalcon.gesem.domain.cms.specification.ParentStage;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -38,6 +39,7 @@ import java.math.BigDecimal;
 public class BuildObject extends ParentStage {
 
     @JsonProperty(value = "sName")
+    @Column(name = "NAME")
     private String name;
 
     @JsonProperty(value = "oOwner")
@@ -45,9 +47,11 @@ public class BuildObject extends ParentStage {
     private Partner owner;
 
     @JsonProperty(value = "sAddress")
+    @Column(name = "ADDRESS")
     private String address;
 
     @JsonProperty(value = "nOverheadCosts")
+    @Column(name = "OVERHEAD_COSTS")
     private BigDecimal overheadCosts = new BigDecimal(0);
 
     protected BuildObject() {

@@ -41,10 +41,11 @@ import java.util.Set;
 public class User extends AbstractEntity implements UserDetails {
 
     @JsonProperty(value = "sLogin")
-    @Column(nullable = false, unique = true)
+    @Column(name = "LOGIN", nullable = false, unique = true)
     private String username;
 
     @JsonProperty(value = "sPassword")
+    @Column(name = "PASSWORD")
     private String password;
 
     @JsonProperty(value = "aRoles")
@@ -52,15 +53,19 @@ public class User extends AbstractEntity implements UserDetails {
     private Set<Role> roles;
 
     @JsonProperty(value = "bEnabled")
+    @Column(name = "ENABLED")
     private boolean enabled;
 
     @JsonProperty(value = "bAccountNonExpired")
+    @Column(name = "ACCOUNT_NON_EXPIRIED")
     private boolean accountNonExpired;
 
     @JsonProperty(value = "bAccountNonLocked")
+    @Column(name = "ACCOUNT_NON_LOCKED")
     private boolean accountNonLocked;
 
     @JsonProperty(value = "bCredentialsNonExpired")
+    @Column(name = "CREDENTIALS_NON_EXPIRIED")
     private boolean credentialsNonExpired;
 
     protected User() {

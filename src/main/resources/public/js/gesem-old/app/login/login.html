@@ -1,0 +1,95 @@
+<!--
+  ~ Copyright (c) 2016-2017 by Oleksii KHALIKOV.
+  ~ ========================================================
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<div ng-init="vm.init">
+    <div class="page-header" style="margin: auto; max-width: 80%">
+        <img src="../../../img/logo.png" align="middle" vspace="10px" width="350px" alt="GFalcon"><br/>
+        <h1>GF Gesem
+            <small>Management Accounting System v-1.0</small>
+        </h1>
+
+    </div>
+    <div id="loginPlace" ng-if="!vm.isRegisterPage">
+        <form class="form-horizontal" style="width: 600px; margin: auto">
+            <div class="form-group">
+                <p id="loginMessage" class="bg-info"></p>
+                <label for="loginLogin" class="col-sm-2 control-label">Пользователь</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="loginLogin" placeholder="Login"
+                           ng-model="vm.oUser.sLogin">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="passwordLogin" class="col-sm-2 control-label">Пароль</label>
+
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordLogin" placeholder="Password"
+                           ng-model="vm.oUser.sPassword">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default" ng-click="vm.auth(vm.oUser)">Войти</button>
+                    <button type="button" class="btn btn-default" ng-click="vm.changeView()">Зарегистрироваться</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div id="registerPlace" ng-if="vm.isRegisterPage">
+        <form class="form-horizontal" style="width: 600px; margin: auto">
+            <div class="form-group">
+                <p id="loginRegisterMessage" class="bg-danger"></p>
+                <label for="loginRegister" class="col-sm-2 control-label">Пользователь</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="loginRegister" placeholder="Login"
+                           ng-model="vm.oUser.sLogin">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="passwordRegister" class="col-sm-2 control-label">Пароль</label>
+
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordRegister" placeholder="Password"
+                           ng-model="vm.oUser.sPassword">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="passwordConfirmationRegister" class="col-sm-2 control-label">Пароль</label>
+
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="passwordConfirmationRegister" placeholder="Password"
+                           ng-model="vm.oUser.sConfirmPassword">
+                </div>
+                <p id="passwordConfirmationRegisterMessage" class="bg-warning"></p>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default" ng-click="vm.register(vm.oUser)">Зарегистрироваться
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="vm.changeView()">Назад</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="panel panel-default" style="margin: auto; max-width: 80%">
+        <div class="panel-body">
+            <span class="label label-default">Copiright &copy;</span>
+            <span class="label label-primary">Oleksii KHALIKOV</span>
+        </div>
+    </div>
+</div>
