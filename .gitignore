@@ -531,3 +531,4 @@ buildNumber.properties
 /raw/
 /gesem.log
 /libs-docs/
+!/src/main/java/ua/com/gfalcon/entitydao/AbstractEntity.java

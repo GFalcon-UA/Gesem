@@ -108,7 +108,7 @@ public class JpaConfiguration {
     private Properties jpaProperties() {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
-        properties.put("hibernate.hbm2ddl.auto", Hbm2ddl.CREATE_DROP.getValue());
+        properties.put("hibernate.hbm2ddl.auto", Hbm2ddl.UPDADE.getValue());
         properties.put("hibernate.show_sql", true);
         properties.put("hibernate.format_sql", true);
         properties.put("hibernate.use_sql_comments", true);

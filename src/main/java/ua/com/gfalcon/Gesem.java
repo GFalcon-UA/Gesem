@@ -19,12 +19,10 @@ package ua.com.gfalcon;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author Oleksii Khalikov
@@ -38,6 +36,11 @@ public class Gesem {
         SpringApplication.run(Gesem.class, args);
     }
 
+    @RequestMapping(value = "/", produces = "text/html")
+    public String getMainPage() {
+        return "index.html";
+    }
+
     // Match everything without a suffix (so not a static resource)
     @RequestMapping(value = "/{path:[^\\.]*}")
     public String redirect() {
@@ -45,13 +48,13 @@ public class Gesem {
         return "forward:/";
     }
 
-    @RequestMapping("/resource")
-    @ResponseBody
-    public Map<String, Object> home() {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put("id", UUID.randomUUID().toString());
-        model.put("content", "Hello World");
-        return model;
+    @RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
+    public String getLogin(@RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "logout", required = false) String logout,
+            Model model) {
+        model.addAttribute("error", error != null);
+        model.addAttribute("logout", logout != null);
+        return "login";
     }
 
 }

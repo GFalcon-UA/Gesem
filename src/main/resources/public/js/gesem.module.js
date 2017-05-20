@@ -26,11 +26,16 @@
     , 'home'
     , 'message'
     , 'navigation'
+    , 'ngCookies'
   ])
-    .run(['auth', function (auth) {
+    .run(['auth', '$http', '$cookies', function (auth, $http, $cookies) {
       // Initialize auth module with the home page and login/logout path
       // respectively
       auth.init('/', '/login', '/logout');
+      //debugger;
+
+      //$http.defaults.headers.post['X-XSRF-TOKEN'] = $cookies.csrftoken;
+
     }]);
 
 })();

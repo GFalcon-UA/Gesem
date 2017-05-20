@@ -36,38 +36,11 @@
         }
     </style>
 
-    <script src="/webjars/jquery/3.2.1/dist/jquery.min.js" type="text/javascript"></script>
-    <script src="/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/webjars/lodash/4.17.4/dist/lodash.min.js" type="text/javascript"></script>
-    <script src="/webjars/moment/2.18.1/min/moment.min.js" type="text/javascript"></script>
-    <script src="/webjars/handsontable/0.31.1/dist/handsontable.full.min.js" type="text/javascript"></script>
-
-    <script src="/webjars/angular/1.6.4/angular.js" type="text/javascript"></script>
-    <script src="/webjars/angular-cookies/1.6.4/angular-cookies.js" type="text/javascript"></script>
-    <script src="/webjars/angular-route/1.6.4/angular-route.js" type="text/javascript"></script>
-    <script src="/webjars/angular-bootstrap/2.5.0/ui-bootstrap.js" type="text/javascript"></script>
-    <script src="/webjars/angular-bootstrap/2.5.0/ui-bootstrap-tpls.js" type="text/javascript"></script>
-    <script src="/webjars/angular-smart-table/2.1.8/dist/smart-table.js" type="text/javascript"></script>
-    <script src="/webjars/angular-moment/1.0.1/angular-moment.js" type="text/javascript"></script>
-    <script src="/webjars/ngHandsontable/0.12.0/dist/ngHandsontable.min.js" type="text/javascript"></script>
-
-    <script src="js/auth/auth.module.js" type="text/javascript"></script>
-    <script src="js/auth/auth.factory.js" type="text/javascript"></script>
-    <script src="js/auth/auth.service.js" type="text/javascript"></script>
-
-    <script src="js/home/home.js" type="text/javascript"></script>
-    <script src="js/message/message.js" type="text/javascript"></script>
-    <script src="js/navigation/navigation.js" type="text/javascript"></script>
-
-    <script src="js/gesem.module.js" type="text/javascript"></script>
-    <script src="js/gesem.constants.js" type="text/javascript"></script>
-    <script src="js/gesem.route.js" type="text/javascript"></script>
-
 </head>
 <body ng-cloak class="ng-cloak">
 <!--
 <gf-menu ng-if="vm.isShowMenu"></gf-menu>
--->
+
 <div ng-controller="navigation as nav" class="container">
     <ul class="nav nav-pills" role="tablist">
         <li ng-class="{active:nav.tab('home')}"><a href="/">home</a></li>
@@ -76,9 +49,35 @@
         <li ng-show="nav.authenticated()"><a href="" ng-click="nav.logout()">logout</a></li>
     </ul>
 </div>
+-->
+<div ng-view class="container">Hello</div>
 
-<div ng-view class="container"></div>
+<script src="/webjars/jquery/3.2.1/dist/jquery.min.js" type="application/javascript"></script>
+<script src="/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js" type="application/javascript"></script>
+<script src="/webjars/lodash/4.17.4/dist/lodash.min.js" type="application/javascript"></script>
+<script src="/webjars/moment/2.18.1/min/moment.min.js" type="application/javascript"></script>
+<script src="/webjars/handsontable/0.31.1/dist/handsontable.full.min.js" type="application/javascript"></script>
 
+<script src="/webjars/angular/1.6.4/angular.js" type="application/javascript"></script>
+<script src="/webjars/angular-cookies/1.6.4/angular-cookies.js" type="application/javascript"></script>
+<script src="/webjars/angular-route/1.6.4/angular-route.js" type="application/javascript"></script>
+<script src="/webjars/angular-bootstrap/2.5.0/ui-bootstrap.js" type="application/javascript"></script>
+<script src="/webjars/angular-bootstrap/2.5.0/ui-bootstrap-tpls.js" type="application/javascript"></script>
+<script src="/webjars/angular-smart-table/2.1.8/dist/smart-table.js" type="application/javascript"></script>
+<script src="/webjars/angular-moment/1.0.1/angular-moment.js" type="application/javascript"></script>
+<script src="/webjars/ngHandsontable/0.12.0/dist/ngHandsontable.min.js" type="application/javascript"></script>
+
+<script src="js/auth/auth.module.js" type="application/javascript"></script>
+<script src="js/auth/auth.factory.js" type="application/javascript"></script>
+<script src="js/auth/auth.service.js" type="application/javascript"></script>
+
+<script src="js/home/home.js" type="application/javascript"></script>
+<script src="js/message/message.js" type="application/javascript"></script>
+<script src="js/navigation/navigation.js" type="application/javascript"></script>
+
+<script src="js/gesem.module.js" type="application/javascript"></script>
+<script src="js/gesem.constants.js" type="application/javascript"></script>
+<script src="js/gesem.route.js" type="application/javascript"></script>
 
 </body>
 </html>
