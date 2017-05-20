@@ -22,63 +22,29 @@
   'use strict';
 
   angular.module('auth')
-    .factory('AuthService', ['$http', '$q', function ($http, $q) {
+    .service('AuthService', ['$http', function ($http) {
 
-      var service = {};
-
-      service.login = login;
-      service.logout = logout;
-
-      init();
-
-      return service;
-
-      function init() {
-        console.debug('AuthService is initialized');
-      }
-
-      function sendRestRequest(req, callback) {
-        var cb = callback || angular.noop;
-        var deferred = $q.defer();
-
-        req.url = req.url + "";
-
-        $http(req).then(
-          function (response) {
-            var data;
-            try {
-              data = angular.fromJson(response.data);
-            } catch (e) {
-              data = response.data;
-            }
-            deferred.resolve(data);
-            return cb();
-          },
-          function (response) {
-            deferred.reject(response);
-            return cb(response);
-          }.bind(this));
-        return deferred.promise;
-      }
-
-      function login(headers, callback) {
-        var req = {
+      this.login = function (headers) {
+        return $http({
           method: 'GET',
           url: '/api/auth/getUser',
           headers: headers
-        };
-        return sendRestRequest(req, callback);
-      }
+        }).then(function (resp) {
+          return resp;
+        }, function (err) {
+          return err;
+        });
+      };
 
-      function logout(logoutUrl) {
-        var req = {
-          method: 'POST',
-          url: logoutUrl,
-          params: {},
-          data: {}
-        };
-        return sendRestRequest(req)
-
+      this.logout = function (logoutUrl) {
+        return $http({
+          method: 'GET',
+          url: logoutUrl
+        }).then(function (resp) {
+          return resp;
+        }, function (err) {
+          return err;
+        });
       }
 
     }]);

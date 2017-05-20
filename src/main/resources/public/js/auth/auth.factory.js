@@ -51,8 +51,8 @@
                 + credentials.password)
             } : {};
 
-            AuthService.login(headers, callback).then(function (response) {
-              if (response.data.name) {
+            AuthService.login(headers).then(function (response) {
+              if (response.data && response.data.name) {
                 auth.authenticated = true;
               } else {
                 auth.authenticated = false;
