@@ -18,7 +18,6 @@ package ua.com.gfalcon.gesem.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
@@ -32,10 +31,9 @@ import java.security.Principal;
 @RequestMapping(value = "/api/auth")
 public class AuthController {
 
-    @RequestMapping(value = "/getUser", method = RequestMethod.GET)
+    @RequestMapping("/getUser")
     @ResponseBody
     public Principal user(Principal user) {
-
         return user;
     }
 
