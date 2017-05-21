@@ -110,7 +110,7 @@ public class JpaConfiguration {
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL9Dialect");
         properties.put("hibernate.hbm2ddl.auto", Hbm2ddl.UPDADE.getValue());
         properties.put("hibernate.show_sql", true);
-        properties.put("hibernate.format_sql", true);
+        //properties.put("hibernate.format_sql", true);
         properties.put("hibernate.use_sql_comments", true);
         properties.put("hibernate.enable_lazy_load_no_trans", true);
         return properties;
