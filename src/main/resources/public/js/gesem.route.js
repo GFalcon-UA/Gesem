@@ -19,30 +19,45 @@
  * @version 1.0.0
  */
 (function () {
-  'use strict';
+    'use strict';
 
-  angular.module('gesem')
-    .config(['$routeProvider', '$httpProvider', '$locationProvider',
-      function ($routeProvider, $httpProvider, $locationProvider) {
+    angular.module('gesem')
+        .config(['$routeProvider', '$httpProvider', '$locationProvider', 'csrfProvider',
+            function ($routeProvider, $httpProvider, $locationProvider, csrfProvider) {
 
-        $locationProvider.html5Mode(true);
+                $locationProvider.html5Mode(true);
 
-        $routeProvider.when('/', {
-          templateUrl: 'js/home/home.html',
-          controller: 'home',
-          controllerAs: 'controller'
-        }).when('/message', {
-          templateUrl: 'js/message/message.html',
-          controller: 'message',
-          controllerAs: 'controller'
-        }).when('/login', {
-          templateUrl: 'js/navigation/login.html',
-          controller: 'navigation',
-          controllerAs: 'controller'
-        }).otherwise('/');
+                $routeProvider.when('/', {
+                    templateUrl: 'js/home/home.html',
+                    controller: 'home',
+                    controllerAs: 'controller'
+                }).when('/message', {
+                    templateUrl: 'js/message/message.html',
+                    controller: 'message',
+                    controllerAs: 'controller'
+                }).when('/login', {
+                    templateUrl: 'js/navigation/login.html',
+                    controller: 'navigation',
+                    controllerAs: 'controller'
+                }).otherwise('/');
 
-        $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+                $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-      }]);
+
+                // options (Object) - Options to customize the CSRF interceptor behavior.
+                var csrfOption = {};
+                // options.url (String) - The URL to which the initial CSRF request has to be made to get the CSRF token. Default: /.
+                csrfOption.url = '/';
+                // options.csrfHttpType (String) - The HTTP method type which should be used while requesting the CSRF token call. Default: head.
+                csrfOption.csrfHttpType = 'head';
+                // options.maxRetries (Number) - The number of retries allowed for CSRF token call in-case of 403 Forbidden response errors. Default: 5.
+                csrfOption.maxRetries = 5;
+                // options.csrfTokenHeader (String) - Set this option to add the CSRF headers only to some HTTP requests. Default: ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'].
+                csrfOption.csrfTokenHeader = 'X-CSRF-TOKEN';
+                // options.httpTypes (Array) - Customize the name of the CSRF header on the requests. Default: X-CSRF-TOKEN.
+                csrfOption.httpTypes = ['GET', 'HEAD', 'PUT', 'POST', 'DELETE'];
+                csrfProvider.config(csrfOption);
+
+            }]);
 
 })();

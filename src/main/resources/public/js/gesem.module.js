@@ -27,6 +27,7 @@
     , 'message'
     , 'navigation'
     , 'ngCookies'
+      , 'spring-security-csrf-token-interceptor'
   ])
     .run(['auth', '$http', '$cookies', function (auth, $http, $cookies) {
       // Initialize auth module with the home page and login/logout path

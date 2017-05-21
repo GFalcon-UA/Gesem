@@ -97,6 +97,7 @@
         <numbro.version>1.9.3</numbro.version>
         <pikaday.version>1.4.0</pikaday.version>
         <zeroclipboard.version>2.3.0</zeroclipboard.version>
+        <csrf-token-interceptor.version>0.1.5</csrf-token-interceptor.version>
     </properties>
 
 
@@ -737,6 +738,11 @@
             <groupId>org.webjars.bower</groupId>
             <artifactId>zeroclipboard</artifactId>
             <version>${zeroclipboard.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>spring-security-csrf-token-interceptor</artifactId>
+            <version>${csrf-token-interceptor.version}</version>
         </dependency>
 
     </dependencies>
